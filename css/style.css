@@ -54,6 +54,8 @@ a:hover { color: var(--color-primary-dark); }
   width: 100%; height: 100%;
   pointer-events: none;
   z-index: 9999;
+  transform: translateZ(0); /* own GPU layer — prevents repaint bleed */
+  will-change: transform;
 }
 
 /* ===== NAVIGATION ===== */
@@ -154,7 +156,8 @@ a:hover { color: var(--color-primary-dark); }
   min-height: 100vh;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
+  flex-direction: column;
   overflow: hidden;
 }
 .hero-bg {
@@ -162,12 +165,12 @@ a:hover { color: var(--color-primary-dark); }
   inset: 0;
   background-image: url('../images/fairy/fairy-scene.png');
   background-size: cover;
-  background-position: center 30%;
+  background-position: center 10%;
   animation: heroShimmer 12s ease-in-out infinite alternate;
 }
 @keyframes heroShimmer {
-  0% { filter: hue-rotate(0deg) brightness(1); }
-  100% { filter: hue-rotate(6deg) brightness(0.97); }
+  0% { opacity: 1; }
+  100% { opacity: 0.93; }
 }
 .hero-overlay {
   position: absolute;
@@ -179,7 +182,10 @@ a:hover { color: var(--color-primary-dark); }
   position: relative;
   z-index: 2;
   text-align: center;
-  padding: 40px 20px;
+  padding: 0 20px 80px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 /* Invitation Frame */
@@ -388,6 +394,7 @@ a:hover { color: var(--color-primary-dark); }
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.8s, transform 0.8s;
+  will-change: transform, opacity;
 }
 .timeline-item.visible {
   opacity: 1;
@@ -519,6 +526,7 @@ a:hover { color: var(--color-primary-dark); }
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.8s, transform 0.8s, box-shadow var(--transition);
+  will-change: transform, opacity;
 }
 .detail-card.visible {
   opacity: 1;
@@ -684,6 +692,7 @@ a:hover { color: var(--color-primary-dark); }
   box-shadow: 0 4px 20px rgba(138, 112, 173, 0.06);
   opacity: 0; transform: translateY(20px);
   transition: opacity 0.6s, transform 0.6s, box-shadow var(--transition);
+  will-change: transform, opacity;
 }
 .hotel-card.visible { opacity: 1; transform: translateY(0); }
 .hotel-card:hover { box-shadow: 0 8px 30px rgba(138, 112, 173, 0.15); }
@@ -763,6 +772,7 @@ a:hover { color: var(--color-primary-dark); }
   position: relative;
   opacity: 0; transform: scale(0.95);
   transition: opacity 0.6s, transform 0.6s;
+  will-change: transform, opacity;
 }
 .gallery-item.visible { opacity: 1; transform: scale(1); }
 .gallery-item.large { grid-column: span 2; }
@@ -981,7 +991,7 @@ body.lightbox-open { overflow: hidden; }
   background: var(--color-deep);
   background-image: url('../images/fairy/fairy-moon.jpg');
   background-size: cover;
-  background-position: center top;
+  background-position: 50% 38%;
   color: var(--color-white);
   padding: 60px 5%;
   text-align: center;
@@ -1144,22 +1154,17 @@ body.lightbox-open { overflow: hidden; }
   100% { opacity: 1; }
 }
 
-/* Enchanted invitation frame glow */
+/* Enchanted invitation frame glow — static shadow, no animation */
 .invitation-frame {
   box-shadow:
-    0 0 40px rgba(138, 112, 173, 0.1),
-    0 0 80px rgba(201, 169, 110, 0.05),
-    inset 0 0 30px rgba(255, 255, 255, 0.1);
-  animation: frameGlow 5s ease-in-out infinite alternate;
-}
-@keyframes frameGlow {
-  0% { box-shadow: 0 0 40px rgba(138, 112, 173, 0.1), 0 0 80px rgba(201, 169, 110, 0.05), inset 0 0 30px rgba(255, 255, 255, 0.1); }
-  100% { box-shadow: 0 0 60px rgba(138, 112, 173, 0.18), 0 0 100px rgba(201, 169, 110, 0.1), inset 0 0 40px rgba(255, 255, 255, 0.15); }
+    0 0 50px rgba(138, 112, 173, 0.15),
+    0 0 90px rgba(201, 169, 110, 0.07),
+    inset 0 0 35px rgba(255, 255, 255, 0.12);
 }
 
-/* Magical countdown glow */
+/* Magical countdown glow — static, no animation to avoid repaints */
 .countdown-number {
-  text-shadow: 0 0 20px rgba(138, 112, 173, 0.3);
+  text-shadow: 0 0 20px rgba(138, 112, 173, 0.25);
 }
 
 /* Gallery hover magic sparkle */
@@ -1177,32 +1182,29 @@ body.lightbox-open { overflow: hidden; }
 }
 .gallery-item:hover::before { opacity: 1; }
 
-/* Hashtag golden glow */
+/* Hashtag golden glow — use opacity animation instead of text-shadow animation */
 .hashtag {
-  text-shadow: 0 0 30px rgba(201, 169, 110, 0.4), 0 0 60px rgba(201, 169, 110, 0.2);
+  text-shadow: 0 0 35px rgba(201, 169, 110, 0.4), 0 0 70px rgba(201, 169, 110, 0.2);
   animation: hashGlow 3s ease-in-out infinite alternate;
 }
 @keyframes hashGlow {
-  0% { text-shadow: 0 0 30px rgba(201, 169, 110, 0.3), 0 0 60px rgba(201, 169, 110, 0.1); }
-  100% { text-shadow: 0 0 40px rgba(201, 169, 110, 0.5), 0 0 80px rgba(201, 169, 110, 0.3); }
+  0% { opacity: 0.85; }
+  100% { opacity: 1; }
 }
 
-/* Timeline marker glow */
+/* Timeline marker pulse — transform only, no box-shadow animation */
 .timeline-marker {
   animation: markerPulse 2.5s ease-in-out infinite;
+  box-shadow: 0 0 0 3px var(--color-primary-light), 0 0 15px rgba(201, 169, 110, 0.25);
 }
 @keyframes markerPulse {
-  0%, 100% { box-shadow: 0 0 0 3px var(--color-primary-light), 0 0 15px rgba(201, 169, 110, 0.2); }
-  50% { box-shadow: 0 0 0 5px var(--color-primary-light), 0 0 25px rgba(201, 169, 110, 0.4); }
+  0%, 100% { transform: translateX(-50%) scale(1); }
+  50% { transform: translateX(-50%) scale(1.25); }
 }
 
-/* Timeline image ring glow */
+/* Timeline image ring — static shadow, no animation */
 .timeline-img-wrapper {
-  animation: imgRingGlow 4s ease-in-out infinite alternate;
-}
-@keyframes imgRingGlow {
-  0% { box-shadow: 0 8px 30px rgba(138, 112, 173, 0.2); }
-  100% { box-shadow: 0 8px 40px rgba(138, 112, 173, 0.35), 0 0 20px rgba(201, 169, 110, 0.15); }
+  box-shadow: 0 8px 35px rgba(138, 112, 173, 0.25);
 }
 
 /* Social section enchanted forest overlay */
@@ -1267,6 +1269,7 @@ body.lightbox-open { overflow: hidden; }
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.8s ease, transform 0.8s ease;
+  will-change: transform, opacity;
 }
 [data-animate].visible {
   opacity: 1;
@@ -1333,7 +1336,7 @@ body.lightbox-open { overflow: hidden; }
   .timeline-img-wrapper { width: 120px; height: 120px; }
 }
 
-/* ── Engagement ring timeline marker ── */
+/* ── Engagement ring timeline marker — scale pulse, no box-shadow animation ── */
 .marker-ring {
   width: 22px; height: 22px;
   background: radial-gradient(circle, var(--color-gold) 40%, var(--color-rose) 100%);
@@ -1342,8 +1345,8 @@ body.lightbox-open { overflow: hidden; }
   animation: ringGlow 2s ease-in-out infinite;
 }
 @keyframes ringGlow {
-  0%, 100% { box-shadow: 0 0 0 4px var(--color-gold), 0 0 20px rgba(201, 169, 110, 0.4); }
-  50% { box-shadow: 0 0 0 6px var(--color-gold), 0 0 35px rgba(201, 169, 110, 0.7); }
+  0%, 100% { transform: translateX(-50%) scale(1); }
+  50% { transform: translateX(-50%) scale(1.3); }
 }
 
 /* ── Fairy entrance overlay ── */
