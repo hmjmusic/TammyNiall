@@ -1350,37 +1350,27 @@ a:hover { color: var(--color-primary-dark); }
 
 .fairy-sprite {
   position: absolute;
-  height: 200px;
+  height: 220px;
   width: auto;
   filter: drop-shadow(0 0 20px rgba(201, 169, 110, 0.6)) drop-shadow(0 0 40px rgba(138, 112, 173, 0.4));
-  will-change: transform;
+  will-change: transform, left, top;
 }
-.fairy-tammy {
-  top: 35%;
-  left: -220px;
-  animation: fairyFlyIn 3.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s forwards;
-}
-.fairy-niall {
-  top: 30%;
-  right: -220px;
-  animation: fairyFlyInRight 3.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.6s forwards;
+.fairy-couple {
+  left: -250px;
+  top: 50%;
+  transform: translateY(-50%);
+  animation: fairySwoopAcross 4.5s cubic-bezier(0.22, 0.61, 0.36, 1) 0.3s forwards;
 }
 
-@keyframes fairyFlyIn {
-  0% { left: -220px; top: 60%; transform: rotate(-8deg) scale(0.7); opacity: 0; }
-  15% { opacity: 1; }
-  30% { top: 25%; transform: rotate(4deg) scale(0.9); }
-  50% { top: 40%; left: 30%; transform: rotate(-3deg) scale(1); }
-  70% { top: 30%; left: 40%; transform: rotate(2deg) scale(1.05); }
-  100% { top: 35%; left: 35%; transform: rotate(0deg) scale(1); opacity: 1; }
-}
-@keyframes fairyFlyInRight {
-  0% { right: -220px; top: 55%; transform: rotate(8deg) scale(0.7) scaleX(-1); opacity: 0; }
-  15% { opacity: 1; }
-  30% { top: 30%; transform: rotate(-4deg) scale(0.9) scaleX(-1); }
-  50% { top: 45%; right: 30%; transform: rotate(3deg) scale(1) scaleX(-1); }
-  70% { top: 35%; right: 40%; transform: rotate(-2deg) scale(1.05) scaleX(-1); }
-  100% { top: 35%; right: 35%; transform: rotate(0deg) scale(1) scaleX(-1); opacity: 1; }
+@keyframes fairySwoopAcross {
+  0%   { left: -250px; top: 65%;  transform: rotate(-6deg) scale(0.6); opacity: 0; }
+  8%   { opacity: 1; }
+  20%  { left: 10%;    top: 28%;  transform: rotate(4deg) scale(0.85); }
+  40%  { left: 30%;    top: 50%;  transform: rotate(-3deg) scale(1); }
+  55%  { left: 50%;    top: 30%;  transform: rotate(2deg) scale(1.05); }
+  70%  { left: 65%;    top: 45%;  transform: rotate(-2deg) scale(1); }
+  85%  { left: 80%;    top: 32%;  transform: rotate(3deg) scale(0.9); }
+  100% { left: 110%;   top: 40%;  transform: rotate(0deg) scale(0.7); opacity: 0; }
 }
 
 /* Sparkle trail behind fairies */
@@ -1402,36 +1392,10 @@ a:hover { color: var(--color-primary-dark); }
   100% { opacity: 0; transform: scale(0) translateY(-30px); }
 }
 
-/* Center dance once both fairies arrive */
-.fairy-entrance.dancing .fairy-tammy {
-  animation: fairyDanceLeft 2s ease-in-out infinite;
-  left: 35%; top: 35%;
-}
-.fairy-entrance.dancing .fairy-niall {
-  animation: fairyDanceRight 2s ease-in-out infinite;
-  right: 35%; top: 35%;
-}
-@keyframes fairyDanceLeft {
-  0%, 100% { transform: rotate(-3deg) translateY(0); }
-  25% { transform: rotate(2deg) translateY(-12px); }
-  50% { transform: rotate(-2deg) translateY(-4px); }
-  75% { transform: rotate(3deg) translateY(-15px); }
-}
-@keyframes fairyDanceRight {
-  0%, 100% { transform: rotate(3deg) scaleX(-1) translateY(0); }
-  25% { transform: rotate(-2deg) scaleX(-1) translateY(-15px); }
-  50% { transform: rotate(2deg) scaleX(-1) translateY(-4px); }
-  75% { transform: rotate(-3deg) scaleX(-1) translateY(-12px); }
-}
-
 /* Responsive fairy sizing */
 @media (max-width: 768px) {
-  .fairy-sprite { height: 140px; }
-  .fairy-entrance.dancing .fairy-tammy { left: 20%; }
-  .fairy-entrance.dancing .fairy-niall { right: 20%; }
+  .fairy-sprite { height: 160px; }
 }
 @media (max-width: 480px) {
-  .fairy-sprite { height: 100px; }
-  .fairy-entrance.dancing .fairy-tammy { left: 10%; }
-  .fairy-entrance.dancing .fairy-niall { right: 10%; }
+  .fairy-sprite { height: 110px; }
 }
