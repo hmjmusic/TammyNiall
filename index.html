@@ -16,6 +16,13 @@
 <body>
   <!-- Fairy entrance animation overlay -->
   <div id="fairy-entrance" class="fairy-entrance">
+    <div class="fairy-intro-prompt" id="fairy-intro-prompt">
+      <div class="fairy-intro-note">Enter the fairy tale</div>
+      <button class="fairy-play-btn" id="fairy-play-btn" aria-label="Begin">
+        <span class="fairy-play-icon">&#9835;</span>
+      </button>
+      <div class="fairy-intro-names">Tamara &amp; Niall</div>
+    </div>
     <img src="images/fairy/fairy-couple-dance.png" alt="" class="fairy-sprite fairy-couple" aria-hidden="true">
     <div class="fairy-trail"></div>
   </div>
@@ -470,6 +477,16 @@
     </div>
   </footer>
 
+  <!-- Background music toggle (persistent, bottom-right) -->
+  <button id="music-toggle" class="music-toggle" aria-label="Toggle music" title="Toggle music">
+    <span class="music-icon">&#9835;</span>
+  </button>
+  <!-- Hidden YouTube player -->
+  <div id="yt-player-wrap" style="position:absolute;width:1px;height:1px;overflow:hidden;top:-9999px;left:-9999px;">
+    <div id="yt-player"></div>
+  </div>
+
   <script src="js/main.js"></script>
+  <script src="https://www.youtube.com/iframe_api"></script>
 </body>
 </html>

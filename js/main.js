@@ -407,44 +407,142 @@ function initFairyEntrance() {
 
   const trail = overlay.querySelector('.fairy-trail');
   const sprite = overlay.querySelector('.fairy-couple');
+  const playBtn = document.getElementById('fairy-play-btn');
+  const introPrompt = document.getElementById('fairy-intro-prompt');
 
-  // Spawn sparkles trailing behind the fairy couple as they fly across
-  let sparkleInterval;
-  function spawnSparkles() {
-    sparkleInterval = setInterval(() => {
-      const rect = sprite.getBoundingClientRect();
-      // Skip if sprite is off-screen
-      if (rect.right < 0 || rect.left > window.innerWidth) return;
-      for (let i = 0; i < 4; i++) {
-        const sparkle = document.createElement('div');
+  // Keep the fairy hidden until the visitor clicks
+  sprite.classList.add('waiting');
+
+  if (!playBtn) return;
+
+  playBtn.addEventListener('click', function() {
+    // 1. Burst sparkles from the button
+    const rect = playBtn.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    var colors = ['#C9A96E', '#D4A5C7', '#8A70AD', '#fff', '#C9A96E'];
+    for (var i = 0; i < 30; i++) {
+      var sparkle = document.createElement('div');
+      sparkle.className = 'burst-sparkle';
+      var angle = (Math.PI * 2 / 30) * i + (Math.random() * 0.4);
+      var dist = 60 + Math.random() * 120;
+      sparkle.style.left = cx + 'px';
+      sparkle.style.top = cy + 'px';
+      sparkle.style.setProperty('--bx', Math.cos(angle) * dist + 'px');
+      sparkle.style.setProperty('--by', Math.sin(angle) * dist + 'px');
+      sparkle.style.width = (4 + Math.random() * 8) + 'px';
+      sparkle.style.height = sparkle.style.width;
+      sparkle.style.background = colors[Math.floor(Math.random() * colors.length)];
+      overlay.appendChild(sparkle);
+      setTimeout(function(s) { s.remove(); }.bind(null, sparkle), 900);
+    }
+
+    // 2. Fade out the intro prompt
+    introPrompt.classList.add('burst');
+
+    // 3. Start the music
+    if (typeof ytPlayer !== 'undefined' && ytPlayer && ytPlayer.playVideo) {
+      ytPlayer.setVolume(40);
+      ytPlayer.playVideo();
+      musicPlaying = true;
+      var toggle = document.getElementById('music-toggle');
+      if (toggle) {
+        toggle.classList.add('playing');
+        toggle.classList.add('visible');
+      }
+    }
+
+    // 4. After a brief pause, start the fairy flying
+    setTimeout(function() {
+      sprite.classList.remove('waiting');
+      startFairyFlight();
+    }, 600);
+  });
+
+  function startFairyFlight() {
+    // Spawn sparkles trailing behind the fairy
+    var sparkleInterval = setInterval(function() {
+      var r = sprite.getBoundingClientRect();
+      if (r.right < 0 || r.left > window.innerWidth) return;
+      for (var i = 0; i < 4; i++) {
+        var sparkle = document.createElement('div');
         sparkle.className = 'fairy-sparkle';
-        sparkle.style.left = (rect.left + rect.width * 0.3 * Math.random()) + 'px';
-        sparkle.style.top = (rect.top + rect.height * Math.random()) + 'px';
+        sparkle.style.left = (r.left + r.width * 0.3 * Math.random()) + 'px';
+        sparkle.style.top = (r.top + r.height * Math.random()) + 'px';
         sparkle.style.width = (3 + Math.random() * 6) + 'px';
         sparkle.style.height = sparkle.style.width;
-        sparkle.style.background = Math.random() > 0.5
-          ? '#C9A96E'
-          : '#D4A5C7';
+        sparkle.style.background = Math.random() > 0.5 ? '#C9A96E' : '#D4A5C7';
         sparkle.style.animationDuration = (0.8 + Math.random() * 1.2) + 's';
         trail.appendChild(sparkle);
-        setTimeout(() => sparkle.remove(), 2000);
+        setTimeout(function(s) { s.remove(); }.bind(null, sparkle), 2000);
       }
     }, 80);
+
+    // Fade out overlay after fairy crosses screen (~6.8s)
+    setTimeout(function() {
+      clearInterval(sparkleInterval);
+      overlay.classList.add('fade-out');
+      sessionStorage.setItem('fairyEntranceSeen', 'true');
+    }, 6500);
+
+    // Remove from DOM
+    setTimeout(function() {
+      overlay.classList.add('hidden');
+    }, 7400);
   }
+}
 
-  // Start sparkles shortly after the fly-in begins
-  setTimeout(spawnSparkles, 500);
+/* ===== BACKGROUND MUSIC (YouTube IFrame API) ===== */
+var ytPlayer = null;
+var musicPlaying = false;
 
-  // The glide animation is ~6.8s (0.3s delay + 6.5s duration)
-  // Start fading the overlay once the fairy exits the right side
-  setTimeout(() => {
-    clearInterval(sparkleInterval);
-    overlay.classList.add('fade-out');
-    sessionStorage.setItem('fairyEntranceSeen', 'true');
-  }, 6200);
+function onYouTubeIframeAPIReady() {
+  ytPlayer = new YT.Player('yt-player', {
+    videoId: 'Dgjt3s7PGaM',
+    playerVars: {
+      autoplay: 0,
+      loop: 1,
+      playlist: 'Dgjt3s7PGaM', // required for loop to work
+      controls: 0,
+      disablekb: 1,
+      modestbranding: 1
+    },
+    events: {
+      onReady: onPlayerReady,
+      onStateChange: onPlayerStateChange
+    }
+  });
+}
 
-  // Remove from DOM after fade completes
-  setTimeout(() => {
-    overlay.classList.add('hidden');
-  }, 7100);
+function onPlayerReady() {
+  var btn = document.getElementById('music-toggle');
+  if (!btn) return;
+
+  btn.addEventListener('click', function() {
+    if (musicPlaying) {
+      ytPlayer.pauseVideo();
+      btn.classList.remove('playing');
+      btn.title = 'Play music';
+      musicPlaying = false;
+    } else {
+      ytPlayer.setVolume(40);
+      ytPlayer.playVideo();
+      btn.classList.add('playing');
+      btn.classList.add('visible');
+      btn.title = 'Pause music';
+      musicPlaying = true;
+    }
+  });
+
+  // If the entrance was already seen (session), show the toggle right away
+  if (sessionStorage.getItem('fairyEntranceSeen')) {
+    btn.classList.add('visible');
+  }
+}
+
+function onPlayerStateChange(event) {
+  // If video ends (shouldn't with loop, but just in case), restart
+  if (event.data === YT.PlayerState.ENDED) {
+    ytPlayer.playVideo();
+  }
 }

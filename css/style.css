@@ -1414,3 +1414,131 @@ body.lightbox-open { overflow: hidden; }
 @media (max-width: 480px) {
   .fairy-sprite { height: 110px; }
 }
+
+/* ── Fairy intro prompt (center of overlay) ── */
+.fairy-intro-prompt {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 10;
+  animation: introFadeIn 1s ease-out 0.2s both;
+}
+@keyframes introFadeIn {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+  100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+.fairy-intro-note {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: rgba(201, 169, 110, 0.8);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.fairy-intro-names {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--color-gold);
+  margin-top: 24px;
+  letter-spacing: 2px;
+}
+.fairy-play-btn {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid var(--color-gold);
+  background: radial-gradient(circle, rgba(138, 112, 173, 0.3) 0%, rgba(61, 43, 86, 0.6) 100%);
+  color: var(--color-gold);
+  font-size: 2.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  animation: btnGlow 2s ease-in-out infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+.fairy-play-btn:hover {
+  transform: scale(1.1);
+  background: radial-gradient(circle, rgba(138, 112, 173, 0.5) 0%, rgba(61, 43, 86, 0.8) 100%);
+  box-shadow: 0 0 40px rgba(201, 169, 110, 0.5);
+}
+@keyframes btnGlow {
+  0%, 100% { box-shadow: 0 0 20px rgba(201, 169, 110, 0.3), 0 0 40px rgba(138, 112, 173, 0.2); }
+  50% { box-shadow: 0 0 30px rgba(201, 169, 110, 0.5), 0 0 60px rgba(138, 112, 173, 0.3); }
+}
+/* Burst sparkle particles from the play button */
+.burst-sparkle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: burstOut 0.8s ease-out forwards;
+}
+@keyframes burstOut {
+  0% { transform: translate(0, 0) scale(1); opacity: 1; }
+  100% { transform: translate(var(--bx), var(--by)) scale(0); opacity: 0; }
+}
+/* Hide the intro prompt once clicked */
+.fairy-intro-prompt.burst {
+  animation: introFadeOut 0.4s ease-out forwards;
+}
+@keyframes introFadeOut {
+  0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.3); }
+}
+/* Hold fairy sprite off-screen until intro is clicked */
+.fairy-couple.waiting {
+  animation: none;
+  opacity: 0;
+}
+
+/* ── Music toggle button (persistent, bottom-right) ── */
+.music-toggle {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9000;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(61, 43, 86, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(201, 169, 110, 0.3);
+  border-radius: 50%;
+  color: var(--color-gold);
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(61, 43, 86, 0.3);
+  opacity: 0;
+  pointer-events: none;
+}
+.music-toggle.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+.music-toggle:hover {
+  background: rgba(61, 43, 86, 0.95);
+  transform: translateY(-2px);
+}
+.music-toggle.playing {
+  border-color: rgba(201, 169, 110, 0.6);
+}
+.music-toggle.playing .music-icon {
+  animation: musicPulse 1.5s ease-in-out infinite;
+}
+@keyframes musicPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.15); }
+}
+@media (max-width: 600px) {
+  .music-toggle { bottom: 16px; right: 16px; width: 42px; height: 42px; font-size: 1.1rem; }
+  .fairy-intro-names { font-size: 1.5rem; }
+  .fairy-play-btn { width: 80px; height: 80px; font-size: 2rem; }
+}
