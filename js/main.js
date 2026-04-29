@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavigation();
   initScrollAnimations();
   initCountdown();
-  initLightbox();
+  // initLightbox(); // disabled — gallery is static
 });
 
 /* ===== FAIRY DUST PARTICLES (Enhanced) ===== */
