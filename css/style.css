@@ -431,12 +431,6 @@ a:hover { color: var(--color-primary-dark); }
   height: 100%;
   object-fit: cover;
 }
-/* Zoom out on the "Through Every Season" snow photo so both faces show */
-.timeline-item:nth-child(2) .timeline-img-wrapper img {
-  object-fit: cover;
-  object-position: center 20%;
-  transform: scale(0.85);
-}
 .timeline-text { flex: 1; }
 .timeline-year {
   font-family: var(--font-heading);
