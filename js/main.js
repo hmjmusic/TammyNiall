@@ -440,16 +440,10 @@ function initFairyEntrance() {
     // 2. Fade out the intro prompt
     introPrompt.classList.add('burst');
 
-    // 3. Start the music
-    if (typeof ytPlayer !== 'undefined' && ytPlayer && ytPlayer.playVideo) {
-      ytPlayer.setVolume(40);
-      ytPlayer.playVideo();
-      musicPlaying = true;
-      var toggle = document.getElementById('music-toggle');
-      if (toggle) {
-        toggle.classList.add('playing');
-        toggle.classList.add('visible');
-      }
+    // 3. Start the music (or queue it if YouTube hasn't loaded yet)
+    musicRequested = true;
+    if (ytReady) {
+      startMusic();
     }
 
     // 4. After a brief pause, start the fairy flying
@@ -495,6 +489,8 @@ function initFairyEntrance() {
 /* ===== BACKGROUND MUSIC (YouTube IFrame API) ===== */
 var ytPlayer = null;
 var musicPlaying = false;
+var musicRequested = false; // true once visitor clicks play
+var ytReady = false;
 
 function onYouTubeIframeAPIReady() {
   ytPlayer = new YT.Player('yt-player', {
@@ -502,7 +498,7 @@ function onYouTubeIframeAPIReady() {
     playerVars: {
       autoplay: 0,
       loop: 1,
-      playlist: 'Dgjt3s7PGaM', // required for loop to work
+      playlist: 'Dgjt3s7PGaM',
       controls: 0,
       disablekb: 1,
       modestbranding: 1
@@ -515,6 +511,14 @@ function onYouTubeIframeAPIReady() {
 }
 
 function onPlayerReady() {
+  ytReady = true;
+
+  // If visitor already clicked play before YT loaded, start music now
+  if (musicRequested && !musicPlaying) {
+    startMusic();
+  }
+
+  // Set up the persistent toggle button
   var btn = document.getElementById('music-toggle');
   if (!btn) return;
 
@@ -525,23 +529,29 @@ function onPlayerReady() {
       btn.title = 'Play music';
       musicPlaying = false;
     } else {
-      ytPlayer.setVolume(40);
-      ytPlayer.playVideo();
-      btn.classList.add('playing');
-      btn.classList.add('visible');
-      btn.title = 'Pause music';
-      musicPlaying = true;
+      startMusic();
     }
   });
 
-  // If the entrance was already seen (session), show the toggle right away
+  // If entrance was already seen, show toggle right away
   if (sessionStorage.getItem('fairyEntranceSeen')) {
     btn.classList.add('visible');
   }
 }
 
+function startMusic() {
+  if (!ytReady || !ytPlayer) return;
+  ytPlayer.setVolume(40);
+  ytPlayer.playVideo();
+  musicPlaying = true;
+  var btn = document.getElementById('music-toggle');
+  if (btn) {
+    btn.classList.add('playing');
+    btn.classList.add('visible');
+  }
+}
+
 function onPlayerStateChange(event) {
-  // If video ends (shouldn't with loop, but just in case), restart
   if (event.data === YT.PlayerState.ENDED) {
     ytPlayer.playVideo();
   }
