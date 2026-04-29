@@ -1472,7 +1472,7 @@ body.lightbox-open { overflow: hidden; }
 }
 /* Burst sparkle particles from the play button */
 .burst-sparkle {
-  position: absolute;
+  position: fixed;
   width: 8px;
   height: 8px;
   border-radius: 50%;
@@ -1480,7 +1480,8 @@ body.lightbox-open { overflow: hidden; }
   animation: burstOut 0.8s ease-out forwards;
 }
 @keyframes burstOut {
-  0% { transform: translate(0, 0) scale(1); opacity: 1; }
+  0% { transform: translate(0, 0) scale(1.2); opacity: 1; }
+  60% { opacity: 0.8; }
   100% { transform: translate(var(--bx), var(--by)) scale(0); opacity: 0; }
 }
 /* Hide the intro prompt once clicked */

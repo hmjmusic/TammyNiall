@@ -417,24 +417,27 @@ function initFairyEntrance() {
 
   playBtn.addEventListener('click', function() {
     // 1. Burst sparkles from the button
-    const rect = playBtn.getBoundingClientRect();
-    const cx = rect.left + rect.width / 2;
-    const cy = rect.top + rect.height / 2;
-    var colors = ['#C9A96E', '#D4A5C7', '#8A70AD', '#fff', '#C9A96E'];
-    for (var i = 0; i < 30; i++) {
+    var btnRect = playBtn.getBoundingClientRect();
+    var cx = btnRect.left + btnRect.width / 2;
+    var cy = btnRect.top + btnRect.height / 2;
+    var colors = ['#C9A96E', '#D4A5C7', '#8A70AD', '#fff', '#C9A96E', '#fff'];
+    for (var i = 0; i < 50; i++) {
       var sparkle = document.createElement('div');
       sparkle.className = 'burst-sparkle';
-      var angle = (Math.PI * 2 / 30) * i + (Math.random() * 0.4);
-      var dist = 60 + Math.random() * 120;
+      var angle = (Math.PI * 2 / 50) * i + (Math.random() * 0.3);
+      var dist = 80 + Math.random() * 200;
       sparkle.style.left = cx + 'px';
       sparkle.style.top = cy + 'px';
       sparkle.style.setProperty('--bx', Math.cos(angle) * dist + 'px');
       sparkle.style.setProperty('--by', Math.sin(angle) * dist + 'px');
-      sparkle.style.width = (4 + Math.random() * 8) + 'px';
-      sparkle.style.height = sparkle.style.width;
+      var size = (5 + Math.random() * 10);
+      sparkle.style.width = size + 'px';
+      sparkle.style.height = size + 'px';
       sparkle.style.background = colors[Math.floor(Math.random() * colors.length)];
-      overlay.appendChild(sparkle);
-      setTimeout(function(s) { s.remove(); }.bind(null, sparkle), 900);
+      sparkle.style.animationDuration = (0.6 + Math.random() * 0.6) + 's';
+      sparkle.style.boxShadow = '0 0 ' + (4 + Math.random() * 8) + 'px ' + sparkle.style.background;
+      document.body.appendChild(sparkle);
+      setTimeout(function(s) { s.remove(); }.bind(null, sparkle), 1300);
     }
 
     // 2. Fade out the intro prompt
