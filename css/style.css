@@ -163,7 +163,9 @@ a:hover { color: var(--color-primary-dark); }
 .hero-bg {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, #150a25 0%, #2d1b4e 35%, #3a2060 55%, #2a1840 80%, #150a25 100%);
+  background-image: url('../images/fairy/fairy-scene.png');
+  background-size: cover;
+  background-position: center 20%;
   animation: heroShimmer 12s ease-in-out infinite alternate;
 }
 @keyframes heroShimmer {
@@ -173,57 +175,34 @@ a:hover { color: var(--color-primary-dark); }
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(ellipse at 25% 50%, rgba(138, 112, 173, 0.25) 0%, transparent 60%),
-    radial-gradient(ellipse at 75% 50%, rgba(61, 43, 86, 0.3) 0%, transparent 60%);
+  background: radial-gradient(circle at center, rgba(41, 28, 58, 0.2) 0%, rgba(41, 28, 58, 0.5) 100%);
 }
 .hero-content {
   position: relative;
   z-index: 2;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 50px;
-  padding: 100px 5% 100px;
-  max-width: 1300px;
+  text-align: center;
+  padding: 80px 20px;
   width: 100%;
-}
-
-/* Fairy illustration — left column */
-.hero-illustration {
-  flex: 1 1 auto;
-  max-width: 580px;
   display: flex;
-  align-items: center;
   justify-content: center;
 }
-.hero-fairy-img {
-  width: 100%;
-  height: auto;
-  filter: drop-shadow(0 0 30px rgba(201, 169, 110, 0.45)) drop-shadow(0 0 60px rgba(138, 112, 173, 0.35));
-  animation: fairyFloat 6s ease-in-out infinite;
-}
-@keyframes fairyFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
-}
 
-/* Invitation Frame — right column, uses Tammy's purple-frame.jpg artwork as-is */
+/* Invitation Frame — centered over fairy art, very transparent */
 .invitation-frame {
   position: relative;
-  flex: 0 0 auto;
-  padding: 55px 45px;
-  max-width: 460px;
+  padding: 55px 50px;
+  max-width: 580px;
   width: 100%;
   text-align: center;
   border-radius: 8px;
   background:
-    linear-gradient(rgba(255, 248, 255, 0.54), rgba(255, 248, 255, 0.54)),
+    linear-gradient(rgba(255, 248, 255, 0.15), rgba(255, 248, 255, 0.15)),
     url('../images/fairy/purple-frame.jpg') center/cover no-repeat;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
   box-shadow:
-    0 0 50px rgba(138, 112, 173, 0.15),
-    0 0 90px rgba(201, 169, 110, 0.07),
-    inset 0 0 35px rgba(255, 255, 255, 0.12);
+    0 0 50px rgba(138, 112, 173, 0.2),
+    0 0 90px rgba(201, 169, 110, 0.08);
 }
 
 .hero-prelude {
@@ -234,6 +213,7 @@ a:hover { color: var(--color-primary-dark); }
   letter-spacing: 2px;
   margin-bottom: 16px;
   opacity: 0.8;
+  text-shadow: 0 1px 6px rgba(255, 255, 255, 0.7);
 }
 .hero-names {
   font-family: var(--font-display);
@@ -267,6 +247,7 @@ a:hover { color: var(--color-primary-dark); }
   letter-spacing: 1px;
   line-height: 1.8;
   margin-bottom: 24px;
+  text-shadow: 0 1px 6px rgba(255, 255, 255, 0.7);
 }
 .hero-date {
   font-family: var(--font-heading);
@@ -275,12 +256,14 @@ a:hover { color: var(--color-primary-dark); }
   letter-spacing: 4px;
   text-transform: uppercase;
   margin-bottom: 12px;
+  text-shadow: 0 1px 8px rgba(255, 255, 255, 0.8);
 }
 .hero-venue {
   font-family: var(--font-body);
   font-size: 1rem;
   color: var(--color-text-light);
   line-height: 1.6;
+  text-shadow: 0 1px 6px rgba(255, 255, 255, 0.7);
 }
 .venue-location {
   font-style: italic;
@@ -512,7 +495,9 @@ a:hover { color: var(--color-primary-dark); }
   margin: 0 auto;
 }
 .detail-card {
-  background: var(--color-white);
+  background:
+    linear-gradient(rgba(255, 248, 255, 0.62), rgba(255, 248, 255, 0.62)),
+    url('../images/fairy/purple-frame.jpg') center/cover no-repeat;
   border-radius: var(--border-radius);
   padding: 40px;
   text-align: center;
@@ -593,7 +578,9 @@ a:hover { color: var(--color-primary-dark); }
   margin-bottom: 30px;
 }
 .attire-option {
-  background: var(--color-white);
+  background:
+    linear-gradient(rgba(255, 248, 255, 0.62), rgba(255, 248, 255, 0.62)),
+    url('../images/fairy/purple-frame.jpg') center/cover no-repeat;
   border-radius: var(--border-radius);
   padding: 40px 30px;
   text-align: center;
@@ -680,7 +667,9 @@ a:hover { color: var(--color-primary-dark); }
   margin: 0 auto 60px;
 }
 .hotel-card {
-  background: var(--color-white);
+  background:
+    linear-gradient(rgba(255, 248, 255, 0.62), rgba(255, 248, 255, 0.62)),
+    url('../images/fairy/purple-frame.jpg') center/cover no-repeat;
   border-radius: var(--border-radius);
   padding: 30px;
   border: 1px solid rgba(138, 112, 173, 0.1);
@@ -868,7 +857,9 @@ body.lightbox-open { overflow: hidden; }
 }
 .registry-content.visible { opacity: 1; transform: translateY(0); }
 .registry-card {
-  background: var(--color-white);
+  background:
+    linear-gradient(rgba(255, 248, 255, 0.62), rgba(255, 248, 255, 0.62)),
+    url('../images/fairy/purple-frame.jpg') center/cover no-repeat;
   border-radius: var(--border-radius);
   padding: 50px 40px;
   text-align: center;
@@ -923,7 +914,9 @@ body.lightbox-open { overflow: hidden; }
 }
 .rsvp-content.visible { opacity: 1; transform: translateY(0); }
 .rsvp-card {
-  background: var(--color-white);
+  background:
+    linear-gradient(rgba(255, 248, 255, 0.62), rgba(255, 248, 255, 0.62)),
+    url('../images/fairy/purple-frame.jpg') center/cover no-repeat;
   border-radius: var(--border-radius);
   padding: 50px 40px;
   text-align: center;
@@ -1272,24 +1265,12 @@ body.lightbox-open { overflow: hidden; }
 }
 
 /* ===== RESPONSIVE ===== */
-@media (max-width: 1050px) {
-  .hero-content {
-    gap: 30px;
-    padding: 100px 4% 100px;
-  }
-  .hero-illustration { max-width: 420px; }
-  .invitation-frame { padding: 45px 35px; max-width: 400px; }
-}
-
 @media (max-width: 900px) {
-  /* Hero stacks vertically on tablet/mobile */
+  /* Hero on tablet/mobile */
   .hero-content {
-    flex-direction: column;
     padding: 90px 20px 90px;
-    gap: 28px;
     align-items: center;
   }
-  .hero-illustration { max-width: 320px; width: 100%; }
   .invitation-frame { max-width: 480px; width: 100%; }
 
   .nav-links {
@@ -1392,11 +1373,12 @@ body.lightbox-open { overflow: hidden; }
 }
 .fairy-couple {
   top: 40%;
-  left: 0;
+  left: -15%;
+  opacity: 0;
   animation:
-    fairyGlideX 14s linear 0.3s forwards,
+    fairyGlideX 14s linear 0.3s both,
     fairyBobY 3.5s ease-in-out 0.3s 4,
-    fairyFade 14s linear 0.3s forwards;
+    fairyFade 14s linear 0.3s both;
 }
 
 /* Smooth linear horizontal glide — no jitter */
