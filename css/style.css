@@ -431,6 +431,12 @@ a:hover { color: var(--color-primary-dark); }
   height: 100%;
   object-fit: cover;
 }
+/* Zoom out on the "Through Every Season" snow photo so both faces show */
+.timeline-item:nth-child(2) .timeline-img-wrapper img {
+  object-fit: cover;
+  object-position: center 20%;
+  transform: scale(0.85);
+}
 .timeline-text { flex: 1; }
 .timeline-year {
   font-family: var(--font-heading);
@@ -1337,7 +1343,7 @@ a:hover { color: var(--color-primary-dark); }
   z-index: 10000;
   pointer-events: none;
   overflow: hidden;
-  background: radial-gradient(ellipse at center, rgba(61, 43, 86, 0.6) 0%, rgba(61, 43, 86, 0.85) 100%);
+  background: radial-gradient(ellipse at center, rgba(61, 43, 86, 0.75) 0%, rgba(61, 43, 86, 0.92) 100%);
   opacity: 1;
   transition: opacity 0.8s ease-out;
 }
@@ -1353,24 +1359,35 @@ a:hover { color: var(--color-primary-dark); }
   height: 220px;
   width: auto;
   filter: drop-shadow(0 0 20px rgba(201, 169, 110, 0.6)) drop-shadow(0 0 40px rgba(138, 112, 173, 0.4));
-  will-change: transform, left, top;
+  will-change: transform;
+  transform: translateZ(0); /* force GPU compositing */
 }
 .fairy-couple {
-  left: -250px;
-  top: 50%;
-  transform: translateY(-50%);
-  animation: fairySwoopAcross 4.5s cubic-bezier(0.22, 0.61, 0.36, 1) 0.3s forwards;
+  top: 40%;
+  left: 0;
+  animation:
+    fairyGlideX 5s linear 0.3s forwards,
+    fairyBobY 1.8s ease-in-out 0.3s 3,
+    fairyFade 5s linear 0.3s forwards;
 }
 
-@keyframes fairySwoopAcross {
-  0%   { left: -250px; top: 65%;  transform: rotate(-6deg) scale(0.6); opacity: 0; }
+/* Smooth linear horizontal glide — no jitter */
+@keyframes fairyGlideX {
+  0%   { left: -15%; }
+  100% { left: 105%; }
+}
+/* Gentle vertical sine-wave bob */
+@keyframes fairyBobY {
+  0%   { transform: translateY(0) rotate(-2deg) scale(0.95); }
+  50%  { transform: translateY(-8vh) rotate(2deg) scale(1.05); }
+  100% { transform: translateY(0) rotate(-2deg) scale(0.95); }
+}
+/* Fade in and out */
+@keyframes fairyFade {
+  0%   { opacity: 0; }
   8%   { opacity: 1; }
-  20%  { left: 10%;    top: 28%;  transform: rotate(4deg) scale(0.85); }
-  40%  { left: 30%;    top: 50%;  transform: rotate(-3deg) scale(1); }
-  55%  { left: 50%;    top: 30%;  transform: rotate(2deg) scale(1.05); }
-  70%  { left: 65%;    top: 45%;  transform: rotate(-2deg) scale(1); }
-  85%  { left: 80%;    top: 32%;  transform: rotate(3deg) scale(0.9); }
-  100% { left: 110%;   top: 40%;  transform: rotate(0deg) scale(0.7); opacity: 0; }
+  85%  { opacity: 1; }
+  100% { opacity: 0; }
 }
 
 /* Sparkle trail behind fairies */
