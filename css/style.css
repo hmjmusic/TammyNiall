@@ -532,8 +532,8 @@ a:hover { color: var(--color-primary-dark); }
   color: var(--color-primary);
 }
 .card-icon-img {
-  width: 90px; height: 90px;
-  margin: 0 auto 20px;
+  width: 180px; height: 180px;
+  margin: 0 auto 24px;
   display: flex; align-items: center; justify-content: center;
 }
 .card-icon-img img {
@@ -612,8 +612,8 @@ a:hover { color: var(--color-primary-dark); }
   color: var(--color-primary);
 }
 .attire-icon-img {
-  width: 80px; height: 80px;
-  margin: 0 auto 16px;
+  width: 150px; height: 150px;
+  margin: 0 auto 20px;
   display: flex; align-items: center; justify-content: center;
 }
 .attire-icon-img img {
@@ -792,11 +792,15 @@ a:hover { color: var(--color-primary-dark); }
   align-items: center;
   justify-content: center;
   padding: 40px;
+  overflow: hidden;
 }
 .lightbox.active { display: flex; }
+body.lightbox-open { overflow: hidden; }
 .lightbox-img {
   max-width: 90vw;
-  max-height: 85vh;
+  max-height: 90vh;
+  width: auto;
+  height: auto;
   object-fit: contain;
   border-radius: 4px;
   box-shadow: 0 0 60px rgba(138, 112, 173, 0.3);
@@ -870,8 +874,8 @@ a:hover { color: var(--color-primary-dark); }
   color: var(--color-primary);
 }
 .registry-icon-img {
-  width: 90px; height: 90px;
-  margin: 0 auto 20px;
+  width: 160px; height: 160px;
+  margin: 0 auto 24px;
   display: flex; align-items: center; justify-content: center;
 }
 .registry-icon-img img {
@@ -925,8 +929,8 @@ a:hover { color: var(--color-primary-dark); }
   color: var(--color-primary);
 }
 .rsvp-icon-img {
-  width: 80px; height: 80px;
-  margin: 0 auto 20px;
+  width: 160px; height: 160px;
+  margin: 0 auto 24px;
   display: flex; align-items: center; justify-content: center;
 }
 .rsvp-icon-img img {

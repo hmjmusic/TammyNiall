@@ -354,12 +354,12 @@ function initLightbox() {
     lightboxImg.src = galleryItems[currentIndex].src;
     lightboxImg.alt = galleryItems[currentIndex].alt;
     lightbox.classList.add('active');
-    document.body.style.overflow = 'hidden';
+    document.body.classList.add('lightbox-open');
   }
 
   function closeLightbox() {
     lightbox.classList.remove('active');
-    document.body.style.overflow = '';
+    document.body.classList.remove('lightbox-open');
   }
 
   function showPrev() {
