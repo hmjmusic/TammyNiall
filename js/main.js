@@ -488,17 +488,17 @@ function initFairyEntrance() {
       }
     }, 80);
 
-    // Fade out overlay after fairy crosses screen (~10.3s)
+    // Fade out overlay after fairy crosses screen (~14.3s)
     setTimeout(function() {
       clearInterval(sparkleInterval);
       overlay.classList.add('fade-out');
       sessionStorage.setItem('fairyEntranceSeen', 'true');
-    }, 10000);
+    }, 14000);
 
     // Remove from DOM
     setTimeout(function() {
       overlay.classList.add('hidden');
-    }, 10900);
+    }, 14900);
   }
 }
 

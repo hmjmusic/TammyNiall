@@ -1365,9 +1365,9 @@ body.lightbox-open { overflow: hidden; }
   top: 40%;
   left: 0;
   animation:
-    fairyGlideX 10s linear 0.3s forwards,
-    fairyBobY 3s ease-in-out 0.3s 4,
-    fairyFade 10s linear 0.3s forwards;
+    fairyGlideX 14s linear 0.3s forwards,
+    fairyBobY 3.5s ease-in-out 0.3s 4,
+    fairyFade 14s linear 0.3s forwards;
 }
 
 /* Smooth linear horizontal glide — no jitter */
@@ -1477,11 +1477,12 @@ body.lightbox-open { overflow: hidden; }
   height: 8px;
   border-radius: 50%;
   pointer-events: none;
-  animation: burstOut 0.8s ease-out forwards;
+  z-index: 99999;
+  animation: burstOut 1s ease-out forwards;
 }
 @keyframes burstOut {
-  0% { transform: translate(0, 0) scale(1.2); opacity: 1; }
-  60% { opacity: 0.8; }
+  0% { transform: translate(0, 0) scale(1.5); opacity: 1; }
+  50% { opacity: 0.9; }
   100% { transform: translate(var(--bx), var(--by)) scale(0); opacity: 0; }
 }
 /* Hide the intro prompt once clicked */
