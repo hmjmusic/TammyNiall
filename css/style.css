@@ -1339,7 +1339,7 @@ body.lightbox-open { overflow: hidden; }
   position: fixed;
   inset: 0;
   z-index: 10000;
-  pointer-events: none;
+  pointer-events: auto;
   overflow: hidden;
   background: radial-gradient(ellipse at center, rgba(61, 43, 86, 0.97) 0%, rgba(41, 28, 58, 1) 100%);
   opacity: 1;
@@ -1347,6 +1347,7 @@ body.lightbox-open { overflow: hidden; }
 }
 .fairy-entrance.fade-out {
   opacity: 0;
+  pointer-events: none;
 }
 .fairy-entrance.hidden {
   display: none;
