@@ -4,6 +4,7 @@
    ============================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
+  initFairyEntrance();
   initFairyDust();
   initNavigation();
   initScrollAnimations();
@@ -391,4 +392,66 @@ function initLightbox() {
     if (e.key === 'ArrowLeft') showPrev();
     if (e.key === 'ArrowRight') showNext();
   });
+}
+
+/* ===== FAIRY ENTRANCE ANIMATION ===== */
+function initFairyEntrance() {
+  const overlay = document.getElementById('fairy-entrance');
+  if (!overlay) return;
+
+  // Only show the entrance once per session
+  if (sessionStorage.getItem('fairyEntranceSeen')) {
+    overlay.classList.add('hidden');
+    return;
+  }
+
+  const trail = overlay.querySelector('.fairy-trail');
+  const tammy = overlay.querySelector('.fairy-tammy');
+  const niall = overlay.querySelector('.fairy-niall');
+
+  // Spawn sparkles behind the fairies as they fly
+  let sparkleInterval;
+  function spawnSparkles() {
+    sparkleInterval = setInterval(() => {
+      [tammy, niall].forEach(sprite => {
+        const rect = sprite.getBoundingClientRect();
+        if (rect.left < -100 || rect.right < 0) return; // off-screen still
+        for (let i = 0; i < 3; i++) {
+          const sparkle = document.createElement('div');
+          sparkle.className = 'fairy-sparkle';
+          sparkle.style.left = (rect.left + rect.width * Math.random()) + 'px';
+          sparkle.style.top = (rect.top + rect.height * Math.random()) + 'px';
+          sparkle.style.width = (3 + Math.random() * 5) + 'px';
+          sparkle.style.height = sparkle.style.width;
+          sparkle.style.background = Math.random() > 0.5
+            ? 'var(--color-gold, #C9A96E)'
+            : 'var(--color-rose, #D4A5C7)';
+          sparkle.style.animationDuration = (0.8 + Math.random() * 1) + 's';
+          trail.appendChild(sparkle);
+          // Clean up sparkle after animation
+          setTimeout(() => sparkle.remove(), 1800);
+        }
+      });
+    }, 100);
+  }
+
+  // Start sparkles after a short delay for the fly-in to begin
+  setTimeout(spawnSparkles, 400);
+
+  // After fly-in completes (~4s), switch to dancing
+  setTimeout(() => {
+    overlay.classList.add('dancing');
+  }, 4200);
+
+  // After dancing for ~2.5s, fade out the overlay
+  setTimeout(() => {
+    clearInterval(sparkleInterval);
+    overlay.classList.add('fade-out');
+    sessionStorage.setItem('fairyEntranceSeen', 'true');
+  }, 6800);
+
+  // Remove from DOM after fade completes
+  setTimeout(() => {
+    overlay.classList.add('hidden');
+  }, 7700);
 }

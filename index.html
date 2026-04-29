@@ -14,6 +14,13 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <!-- Fairy entrance animation overlay -->
+  <div id="fairy-entrance" class="fairy-entrance">
+    <img src="images/fairy/fairy-couple-dance.png" alt="" class="fairy-sprite fairy-tammy" aria-hidden="true">
+    <img src="images/fairy/fairy-couple-pose.png" alt="" class="fairy-sprite fairy-niall" aria-hidden="true">
+    <div class="fairy-trail"></div>
+  </div>
+
   <!-- Fairy dust particles canvas -->
   <canvas id="fairy-dust"></canvas>
 
@@ -131,7 +138,21 @@
             </div>
           </div>
         </div>
-        <!-- Timeline item 5 -->
+        <!-- Timeline item 5: The Proposal -->
+        <div class="timeline-item" data-animate>
+          <div class="timeline-marker marker-ring"></div>
+          <div class="timeline-content">
+            <div class="timeline-img-wrapper">
+              <img src="images/gallery/engagement.png" alt="Tamara and Niall's engagement — showing off the ring" loading="lazy">
+            </div>
+            <div class="timeline-text">
+              <span class="timeline-year">April 14, 2026</span>
+              <h3>The Proposal</h3>
+              <p>At Universal Studios CityWalk, in a cozy secluded spot by the water, Niall got down on one knee and asked Tamara to be his wife. With happy tears and a resounding yes, their fairy tale entered its most magical chapter yet.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Timeline item 6 -->
         <div class="timeline-item" data-animate>
           <div class="timeline-marker"></div>
           <div class="timeline-content">
@@ -139,7 +160,7 @@
               <img src="images/gallery/kiss.jpg" alt="Tamara and Niall sharing a kiss" loading="lazy">
             </div>
             <div class="timeline-text">
-              <span class="timeline-year">10 Years & Forever</span>
+              <span class="timeline-year">10 Years &amp; Forever</span>
               <h3>The Next Chapter</h3>
               <p>After a decade of love, laughter, and growing together, Tamara and Niall are ready to write the most magical chapter yet &mdash; as husband and wife.</p>
             </div>
@@ -181,16 +202,8 @@
     <div class="details-grid">
       <!-- Ceremony Card -->
       <div class="detail-card" data-animate>
-        <div class="card-icon">
-          <svg viewBox="0 0 64 64" class="icon-castle">
-            <path d="M10,58 L10,30 L6,30 L6,20 L10,20 L10,14 L14,14 L14,20 L18,20 L18,30 L14,30 L14,58 Z" fill="currentColor" opacity="0.8"/>
-            <path d="M46,58 L46,30 L42,30 L42,20 L46,20 L46,14 L50,14 L50,20 L54,20 L54,30 L50,30 L50,58 Z" fill="currentColor" opacity="0.8"/>
-            <path d="M18,58 L18,24 L46,24 L46,58 Z" fill="currentColor" opacity="0.6"/>
-            <path d="M27,58 L27,40 Q32,35 37,40 L37,58 Z" fill="var(--color-cream)"/>
-            <circle cx="32" cy="32" r="4" fill="var(--color-cream)" opacity="0.8"/>
-            <path d="M24,24 L24,18 L28,18 L28,24" fill="currentColor"/>
-            <path d="M36,24 L36,18 L40,18 L40,24" fill="currentColor"/>
-          </svg>
+        <div class="card-icon card-icon-img">
+          <img src="images/icons/castle.png" alt="Castle icon" loading="lazy">
         </div>
         <h3>The Ceremony</h3>
         <div class="card-detail-line">
@@ -215,15 +228,8 @@
       </div>
       <!-- Reception Card -->
       <div class="detail-card" data-animate>
-        <div class="card-icon">
-          <svg viewBox="0 0 64 64" class="icon-reception">
-            <ellipse cx="32" cy="48" rx="26" ry="6" fill="currentColor" opacity="0.3"/>
-            <path d="M12,48 L12,44 Q12,30 32,26 Q52,30 52,44 L52,48" fill="none" stroke="currentColor" stroke-width="2"/>
-            <circle cx="32" cy="20" r="6" fill="currentColor" opacity="0.6"/>
-            <path d="M26,20 L22,10 M38,20 L42,10" stroke="currentColor" stroke-width="1.5" fill="none"/>
-            <circle cx="22" cy="8" r="3" fill="currentColor" opacity="0.4"/>
-            <circle cx="42" cy="8" r="3" fill="currentColor" opacity="0.4"/>
-          </svg>
+        <div class="card-icon card-icon-img">
+          <img src="images/icons/dancing-fairies.png" alt="Celebration icon" loading="lazy">
         </div>
         <h3>The Reception</h3>
         <div class="card-detail-line">
@@ -250,16 +256,8 @@
     <div class="attire-content" data-animate>
       <div class="attire-options">
         <div class="attire-option primary">
-          <div class="attire-icon">
-            <svg viewBox="0 0 80 80">
-              <path d="M40,8 L48,20 Q56,28 56,40 L56,60 Q56,68 48,72 L32,72 Q24,68 24,60 L24,40 Q24,28 32,20 Z" fill="currentColor" opacity="0.6"/>
-              <path d="M32,20 Q36,16 40,8 Q44,16 48,20" fill="none" stroke="currentColor" stroke-width="1.5"/>
-              <path d="M20,30 L30,26 M60,30 L50,26" stroke="currentColor" stroke-width="1.5" fill="none"/>
-              <path d="M16,32 Q18,28 20,30 Q22,32 20,34 Q18,36 16,32Z" fill="currentColor" opacity="0.4"/>
-              <path d="M64,32 Q62,28 60,30 Q58,32 60,34 Q62,36 64,32Z" fill="currentColor" opacity="0.4"/>
-              <circle cx="40" cy="36" r="2" fill="var(--color-cream)"/>
-              <circle cx="40" cy="44" r="2" fill="var(--color-cream)"/>
-            </svg>
+          <div class="attire-icon attire-icon-img">
+            <img src="images/icons/attire-fantasy.png" alt="Fantasy attire" loading="lazy">
           </div>
           <h3>Fantasy &amp; Medieval</h3>
           <p>We warmly encourage guests to embrace the fairy tale theme! Think ethereal gowns,
@@ -268,14 +266,8 @@
           <span class="attire-tag">Encouraged</span>
         </div>
         <div class="attire-option secondary">
-          <div class="attire-icon">
-            <svg viewBox="0 0 80 80">
-              <rect x="30" y="12" width="20" height="8" rx="2" fill="currentColor" opacity="0.5"/>
-              <path d="M28,20 L52,20 L54,70 L26,70 Z" fill="currentColor" opacity="0.6"/>
-              <path d="M36,20 L36,70 M44,20 L44,70" stroke="var(--color-cream)" stroke-width="0.5" opacity="0.3"/>
-              <rect x="36" y="28" width="8" height="12" rx="1" fill="var(--color-cream)" opacity="0.5"/>
-              <path d="M38,20 L40,12 L42,20" fill="currentColor" opacity="0.8"/>
-            </svg>
+          <div class="attire-icon attire-icon-img">
+            <img src="images/icons/attire-formal.png" alt="Formal attire" loading="lazy">
           </div>
           <h3>Formal Black Tie</h3>
           <p>Not feeling the costume vibe? No worries at all! You are equally welcome in classic
@@ -361,6 +353,9 @@
     </div>
     <div class="gallery-grid">
       <div class="gallery-item large" data-animate>
+        <img src="images/gallery/engagement.png" alt="Tamara and Niall engagement — showing off the ring" loading="lazy">
+      </div>
+      <div class="gallery-item" data-animate>
         <img src="images/gallery/selfie-couch.jpg" alt="Tamara and Niall cozy selfie" loading="lazy">
       </div>
       <div class="gallery-item" data-animate>
@@ -437,14 +432,8 @@
     </div>
     <div class="registry-content" data-animate>
       <div class="registry-card">
-        <div class="registry-icon">
-          <svg viewBox="0 0 64 64">
-            <rect x="8" y="28" width="48" height="28" rx="3" fill="currentColor" opacity="0.5"/>
-            <rect x="8" y="20" width="48" height="12" rx="3" fill="currentColor" opacity="0.7"/>
-            <rect x="28" y="20" width="8" height="36" fill="currentColor" opacity="0.3"/>
-            <path d="M22,20 Q22,8 32,12 Q24,14 24,20" fill="currentColor" opacity="0.8"/>
-            <path d="M42,20 Q42,8 32,12 Q40,14 40,20" fill="currentColor" opacity="0.8"/>
-          </svg>
+        <div class="registry-icon registry-icon-img">
+          <img src="images/icons/gift.png" alt="Gift icon" loading="lazy">
         </div>
         <h3>Registry Coming Soon</h3>
         <p>We are putting together our registry on The Knot and will share the link here once it's ready.
@@ -464,11 +453,8 @@
     </div>
     <div class="rsvp-content" data-animate>
       <div class="rsvp-card">
-        <div class="rsvp-icon">
-          <svg viewBox="0 0 64 64">
-            <path d="M8,18 L32,36 L56,18 L56,50 Q56,54 52,54 L12,54 Q8,54 8,50 Z" fill="currentColor" opacity="0.5"/>
-            <path d="M8,18 Q8,14 12,14 L52,14 Q56,14 56,18 L32,36 Z" fill="currentColor" opacity="0.7"/>
-          </svg>
+        <div class="rsvp-icon rsvp-icon-img">
+          <img src="images/icons/rsvp-fairy.png" alt="RSVP fairy" loading="lazy">
         </div>
         <h3>RSVP Coming Soon</h3>
         <p>We're finalizing the details and will open RSVPs soon. Please check back &mdash;
