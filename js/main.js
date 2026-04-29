@@ -416,29 +416,42 @@ function initFairyEntrance() {
   if (!playBtn) return;
 
   playBtn.addEventListener('click', function() {
-    // 1. Burst sparkles from the button
+    // 1. Burst sparkles from the button — three waves for maximum magic
     var btnRect = playBtn.getBoundingClientRect();
     var cx = btnRect.left + btnRect.width / 2;
     var cy = btnRect.top + btnRect.height / 2;
-    var colors = ['#C9A96E', '#D4A5C7', '#8A70AD', '#fff', '#C9A96E', '#fff'];
-    for (var i = 0; i < 50; i++) {
-      var sparkle = document.createElement('div');
-      sparkle.className = 'burst-sparkle';
-      var angle = (Math.PI * 2 / 50) * i + (Math.random() * 0.3);
-      var dist = 80 + Math.random() * 200;
-      sparkle.style.left = cx + 'px';
-      sparkle.style.top = cy + 'px';
-      sparkle.style.setProperty('--bx', Math.cos(angle) * dist + 'px');
-      sparkle.style.setProperty('--by', Math.sin(angle) * dist + 'px');
-      var size = (5 + Math.random() * 10);
-      sparkle.style.width = size + 'px';
-      sparkle.style.height = size + 'px';
-      sparkle.style.background = colors[Math.floor(Math.random() * colors.length)];
-      sparkle.style.animationDuration = (0.6 + Math.random() * 0.6) + 's';
-      sparkle.style.boxShadow = '0 0 ' + (4 + Math.random() * 8) + 'px ' + sparkle.style.background;
-      document.body.appendChild(sparkle);
-      setTimeout(function(s) { s.remove(); }.bind(null, sparkle), 1300);
+    var colors = ['#C9A96E', '#D4A5C7', '#8A70AD', '#fff', '#F5E6C8', '#E8B4D8'];
+
+    function spawnBurstWave(count, minDist, maxDist, delay) {
+      setTimeout(function() {
+        for (var i = 0; i < count; i++) {
+          var sparkle = document.createElement('div');
+          sparkle.className = 'burst-sparkle';
+          var angle = (Math.PI * 2 / count) * i + (Math.random() * 0.5);
+          var dist = minDist + Math.random() * (maxDist - minDist);
+          sparkle.style.left = cx + 'px';
+          sparkle.style.top = cy + 'px';
+          sparkle.style.setProperty('--bx', Math.cos(angle) * dist + 'px');
+          sparkle.style.setProperty('--by', Math.sin(angle) * dist + 'px');
+          var size = (4 + Math.random() * 12);
+          sparkle.style.width = size + 'px';
+          sparkle.style.height = size + 'px';
+          var color = colors[Math.floor(Math.random() * colors.length)];
+          sparkle.style.background = color;
+          sparkle.style.animationDuration = (0.8 + Math.random() * 0.8) + 's';
+          sparkle.style.boxShadow = '0 0 ' + (6 + Math.random() * 12) + 'px ' + color;
+          document.body.appendChild(sparkle);
+          setTimeout(function(s) { s.remove(); }.bind(null, sparkle), 1800);
+        }
+      }, delay);
     }
+
+    // Wave 1: tight inner burst
+    spawnBurstWave(40, 40, 150, 0);
+    // Wave 2: wider mid burst
+    spawnBurstWave(50, 100, 280, 100);
+    // Wave 3: outer ring
+    spawnBurstWave(35, 180, 400, 220);
 
     // 2. Fade out the intro prompt
     introPrompt.classList.add('burst');
@@ -475,17 +488,17 @@ function initFairyEntrance() {
       }
     }, 80);
 
-    // Fade out overlay after fairy crosses screen (~6.8s)
+    // Fade out overlay after fairy crosses screen (~10.3s)
     setTimeout(function() {
       clearInterval(sparkleInterval);
       overlay.classList.add('fade-out');
       sessionStorage.setItem('fairyEntranceSeen', 'true');
-    }, 6500);
+    }, 10000);
 
     // Remove from DOM
     setTimeout(function() {
       overlay.classList.add('hidden');
-    }, 7400);
+    }, 10900);
   }
 }
 
