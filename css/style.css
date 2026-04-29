@@ -160,23 +160,20 @@ a:hover { color: var(--color-primary-dark); }
 .hero-bg {
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(ellipse at 20% 20%, rgba(168, 144, 196, 0.6) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 80%, rgba(212, 165, 199, 0.5) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 50%, rgba(232, 216, 240, 0.8) 0%, transparent 70%),
-    linear-gradient(135deg, #E0C8E8 0%, #D8B8D8 25%, #E8D0E8 50%, #D0B8D8 75%, #E0C8E8 100%);
+  background-image: url('../images/fairy/fairy-scene.png');
   background-size: cover;
+  background-position: center 30%;
   animation: heroShimmer 12s ease-in-out infinite alternate;
 }
 @keyframes heroShimmer {
-  0% { opacity: 1; filter: hue-rotate(0deg); }
-  100% { opacity: 0.95; filter: hue-rotate(8deg); }
+  0% { filter: hue-rotate(0deg) brightness(1); }
+  100% { filter: hue-rotate(6deg) brightness(0.97); }
 }
 .hero-overlay {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at center, transparent 30%, rgba(61, 43, 86, 0.15) 100%);
+    radial-gradient(circle at center, rgba(61, 43, 86, 0.45) 0%, rgba(41, 28, 58, 0.7) 100%);
 }
 .hero-content {
   position: relative;
@@ -191,11 +188,13 @@ a:hover { color: var(--color-primary-dark); }
   padding: 60px 50px;
   max-width: 600px;
   margin: 0 auto;
-  border: 1.5px solid rgba(61, 43, 86, 0.35);
+  border: 1.5px solid rgba(201, 169, 110, 0.5);
   border-radius: 8px;
-  background: rgba(255, 248, 245, 0.25);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  background:
+    linear-gradient(rgba(255, 248, 255, 0.58), rgba(255, 248, 255, 0.58)),
+    url('../images/fairy/purple-frame.jpg') center/cover no-repeat;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
 }
 .corner-flourish {
   position: absolute;
@@ -295,18 +294,20 @@ a:hover { color: var(--color-primary-dark); }
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
-  color: var(--color-text-light);
+  color: rgba(255, 255, 255, 0.85);
   font-size: 0.8rem;
   letter-spacing: 2px;
   text-transform: uppercase;
   font-family: var(--font-heading);
-  opacity: 0.6;
+  opacity: 0.75;
+  white-space: nowrap;
+  z-index: 2;
 }
 .scroll-arrow {
   width: 20px; height: 20px;
   margin: 10px auto 0;
-  border-right: 1.5px solid var(--color-text-light);
-  border-bottom: 1.5px solid var(--color-text-light);
+  border-right: 1.5px solid rgba(255, 255, 255, 0.85);
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.85);
   transform: rotate(45deg);
   animation: bounce 2s infinite;
 }
@@ -758,7 +759,7 @@ a:hover { color: var(--color-primary-dark); }
 .gallery-item {
   border-radius: 8px;
   overflow: hidden;
-  cursor: default;
+  cursor: pointer;
   position: relative;
   opacity: 0; transform: scale(0.95);
   transition: opacity 0.6s, transform 0.6s;
@@ -978,11 +979,21 @@ body.lightbox-open { overflow: hidden; }
 /* ===== FOOTER ===== */
 .footer {
   background: var(--color-deep);
+  background-image: url('../images/fairy/fairy-moon.jpg');
+  background-size: cover;
+  background-position: center top;
   color: var(--color-white);
   padding: 60px 5%;
   text-align: center;
+  position: relative;
 }
-.footer-content { max-width: 600px; margin: 0 auto; }
+.footer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(30, 15, 50, 0.72);
+}
+.footer-content { max-width: 600px; margin: 0 auto; position: relative; z-index: 1; }
 .footer-names {
   font-family: var(--font-display);
   font-size: 2rem;

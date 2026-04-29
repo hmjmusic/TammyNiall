@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavigation();
   initScrollAnimations();
   initCountdown();
-  // initLightbox(); // disabled — gallery is static
+  initLightbox();
 });
 
 /* ===== FAIRY DUST PARTICLES (Enhanced) ===== */
@@ -465,12 +465,12 @@ function initFairyEntrance() {
     // 4. After a brief pause, start the fairy flying
     setTimeout(function() {
       sprite.classList.remove('waiting');
+      void sprite.offsetWidth; // force reflow so CSS animation restarts cleanly
       startFairyFlight();
     }, 600);
   });
 
   function startFairyFlight() {
-    // Spawn sparkles trailing behind the fairy
     var sparkleInterval = setInterval(function() {
       var r = sprite.getBoundingClientRect();
       if (r.right < 0 || r.left > window.innerWidth) return;
@@ -488,17 +488,35 @@ function initFairyEntrance() {
       }
     }, 80);
 
-    // Fade out overlay after fairy crosses screen (~14.3s)
-    setTimeout(function() {
-      clearInterval(sparkleInterval);
-      overlay.classList.add('fade-out');
-      sessionStorage.setItem('fairyEntranceSeen', 'true');
+    var autoFadeTimer = setTimeout(function() {
+      dismissEntrance();
     }, 14000);
 
-    // Remove from DOM
-    setTimeout(function() {
+    var hideTimer = setTimeout(function() {
       overlay.classList.add('hidden');
     }, 14900);
+
+    function dismissEntrance() {
+      clearInterval(sparkleInterval);
+      clearTimeout(autoFadeTimer);
+      clearTimeout(hideTimer);
+      overlay.classList.add('fade-out');
+      sessionStorage.setItem('fairyEntranceSeen', 'true');
+      setTimeout(function() { overlay.classList.add('hidden'); }, 900);
+    }
+
+    // Click anywhere on overlay after flight starts to skip
+    overlay.addEventListener('click', function() {
+      dismissEntrance();
+    });
+
+    // Escape key also skips
+    document.addEventListener('keydown', function onEsc(e) {
+      if (e.key === 'Escape') {
+        dismissEntrance();
+        document.removeEventListener('keydown', onEsc);
+      }
+    });
   }
 }
 
