@@ -1364,9 +1364,9 @@ body.lightbox-open { overflow: hidden; }
   top: 40%;
   left: 0;
   animation:
-    fairyGlideX 5s linear 0.3s forwards,
-    fairyBobY 1.8s ease-in-out 0.3s 3,
-    fairyFade 5s linear 0.3s forwards;
+    fairyGlideX 6.5s linear 0.3s forwards,
+    fairyBobY 2.2s ease-in-out 0.3s 3,
+    fairyFade 6.5s linear 0.3s forwards;
 }
 
 /* Smooth linear horizontal glide — no jitter */

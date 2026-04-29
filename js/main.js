@@ -435,16 +435,16 @@ function initFairyEntrance() {
   // Start sparkles shortly after the fly-in begins
   setTimeout(spawnSparkles, 500);
 
-  // The swoop animation is ~4.8s (0.3s delay + 4.5s duration)
+  // The glide animation is ~6.8s (0.3s delay + 6.5s duration)
   // Start fading the overlay once the fairy exits the right side
   setTimeout(() => {
     clearInterval(sparkleInterval);
     overlay.classList.add('fade-out');
     sessionStorage.setItem('fairyEntranceSeen', 'true');
-  }, 4600);
+  }, 6200);
 
   // Remove from DOM after fade completes
   setTimeout(() => {
     overlay.classList.add('hidden');
-  }, 5500);
+  }, 7100);
 }
