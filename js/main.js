@@ -590,3 +590,91 @@ function onPlayerStateChange(event) {
     ytPlayer.playVideo();
   }
 }
+
+/* ═══════════════════════════════════════
+   RSVP FORM
+   ═══════════════════════════════════════ */
+(function initRSVPForm() {
+  var form = document.getElementById('rsvp-form');
+  if (!form) return;
+
+  var attendingSelect = document.getElementById('rsvp-attending');
+  var guestCountGroup = document.getElementById('guest-count-group');
+  var guestNamesGroup = document.getElementById('guest-names-group');
+
+  // Show/hide guest fields based on attendance
+  function toggleGuestFields() {
+    var val = attendingSelect.value;
+    if (val === 'Regretfully Declines') {
+      guestCountGroup.style.display = 'none';
+      guestNamesGroup.style.display = 'none';
+    } else {
+      guestCountGroup.style.display = '';
+      guestNamesGroup.style.display = '';
+    }
+  }
+  attendingSelect.addEventListener('change', toggleGuestFields);
+
+  // Replace this URL after deploying your Google Apps Script
+  var SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL';
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // Clear previous errors
+    form.querySelectorAll('.form-group').forEach(function(g) { g.classList.remove('invalid'); });
+    document.getElementById('rsvp-error').style.display = 'none';
+
+    // Validate required fields
+    var name = document.getElementById('rsvp-name');
+    var email = document.getElementById('rsvp-email');
+    var attending = document.getElementById('rsvp-attending');
+    var guests = document.getElementById('rsvp-guests');
+    var valid = true;
+
+    if (!name.value.trim()) { name.closest('.form-group').classList.add('invalid'); valid = false; }
+    if (!email.value.trim() || !email.value.includes('@')) { email.closest('.form-group').classList.add('invalid'); valid = false; }
+    if (!attending.value) { attending.closest('.form-group').classList.add('invalid'); valid = false; }
+    if (attending.value === 'Joyfully Accepts' && !guests.value) {
+      guests.closest('.form-group').classList.add('invalid'); valid = false;
+    }
+
+    if (!valid) return;
+
+    // Disable button, show sending state
+    var btn = document.getElementById('rsvp-submit');
+    btn.disabled = true;
+    btn.querySelector('.rsvp-submit-text').style.display = 'none';
+    btn.querySelector('.rsvp-submit-sending').style.display = 'inline';
+
+    // Build form data
+    var data = new URLSearchParams();
+    data.append('name', name.value.trim());
+    data.append('email', email.value.trim());
+    data.append('attending', attending.value);
+    data.append('guests', attending.value === 'Regretfully Declines' ? '0' : guests.value);
+    data.append('guestNames', document.getElementById('rsvp-guest-names').value.trim());
+    data.append('attire', document.getElementById('rsvp-attire').value || '');
+    data.append('dietary', document.getElementById('rsvp-dietary').value.trim());
+    data.append('song', document.getElementById('rsvp-song').value.trim());
+    data.append('message', document.getElementById('rsvp-message').value.trim());
+
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: data.toString(),
+      mode: 'no-cors'
+    })
+    .then(function() {
+      form.style.display = 'none';
+      document.querySelector('.rsvp-deadline').style.display = 'none';
+      document.getElementById('rsvp-success').style.display = 'block';
+    })
+    .catch(function() {
+      document.getElementById('rsvp-error').style.display = 'block';
+      btn.disabled = false;
+      btn.querySelector('.rsvp-submit-text').style.display = 'inline';
+      btn.querySelector('.rsvp-submit-sending').style.display = 'none';
+    });
+  });
+})();

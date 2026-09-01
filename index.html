@@ -244,6 +244,10 @@
           Join Tamara and Niall for an evening of dining, dancing, and fairy tale magic
           under one enchanted roof.
         </p>
+        <p class="card-description card-beverages">
+          <strong>Beverages:</strong> Mocktails, soda &amp; water will be served.
+          This is an alcohol-free celebration.
+        </p>
       </div>
     </div>
   </section>
@@ -442,13 +446,83 @@
         <div class="rsvp-icon rsvp-icon-img">
           <img src="images/icons/rsvp-fairy.png" alt="RSVP fairy" loading="lazy">
         </div>
-        <h3>RSVP Coming Soon</h3>
-        <p>We're finalizing the details and will open RSVPs soon. Please check back &mdash;
-        we would love nothing more than to have you there to share in our fairy tale.</p>
-        <div class="rsvp-placeholder">
-          <div class="rsvp-sparkle"></div>
-          <span>Invitations going out soon</span>
-        </div>
+        <p class="rsvp-deadline">Please respond by <strong>February 17, 2027</strong></p>
+        <form id="rsvp-form" class="rsvp-form" novalidate>
+          <!-- Name -->
+          <div class="form-group">
+            <label for="rsvp-name">Your Full Name <span class="required">*</span></label>
+            <input type="text" id="rsvp-name" name="name" required placeholder="First and Last Name">
+          </div>
+          <!-- Email -->
+          <div class="form-group">
+            <label for="rsvp-email">Email Address <span class="required">*</span></label>
+            <input type="email" id="rsvp-email" name="email" required placeholder="you@example.com">
+          </div>
+          <!-- Attending? -->
+          <div class="form-group">
+            <label for="rsvp-attending">Will You Be Attending? <span class="required">*</span></label>
+            <select id="rsvp-attending" name="attending" required>
+              <option value="" disabled selected>Select one</option>
+              <option value="Joyfully Accepts">Joyfully Accepts</option>
+              <option value="Regretfully Declines">Regretfully Declines</option>
+            </select>
+          </div>
+          <!-- Number of guests -->
+          <div class="form-group" id="guest-count-group">
+            <label for="rsvp-guests">Number of Guests (including yourself) <span class="required">*</span></label>
+            <select id="rsvp-guests" name="guests" required>
+              <option value="" disabled selected>Select</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+          </div>
+          <!-- Guest names -->
+          <div class="form-group" id="guest-names-group">
+            <label for="rsvp-guest-names">Names of Additional Guests</label>
+            <textarea id="rsvp-guest-names" name="guestNames" rows="3" placeholder="Please list the names of everyone in your party"></textarea>
+          </div>
+          <!-- Attire choice -->
+          <div class="form-group">
+            <label for="rsvp-attire">Attire Choice</label>
+            <select id="rsvp-attire" name="attire">
+              <option value="" disabled selected>Select one</option>
+              <option value="Fantasy / Medieval">Fantasy / Medieval</option>
+              <option value="Formal Black Tie">Formal Black Tie</option>
+              <option value="Undecided">Undecided</option>
+            </select>
+          </div>
+          <!-- Food allergies -->
+          <div class="form-group">
+            <label for="rsvp-dietary">Food Allergies or Dietary Restrictions</label>
+            <textarea id="rsvp-dietary" name="dietary" rows="3" placeholder="Please let us know about any allergies or restrictions for anyone in your party"></textarea>
+          </div>
+          <!-- Song request -->
+          <div class="form-group">
+            <label for="rsvp-song">Song Request for the Dance Floor</label>
+            <input type="text" id="rsvp-song" name="song" placeholder="What song will get you dancing?">
+          </div>
+          <!-- Message -->
+          <div class="form-group">
+            <label for="rsvp-message">A Note for the Couple</label>
+            <textarea id="rsvp-message" name="message" rows="3" placeholder="Optional — we'd love to hear from you!"></textarea>
+          </div>
+          <!-- Submit -->
+          <button type="submit" class="rsvp-submit" id="rsvp-submit">
+            <span class="rsvp-submit-text">Send Your RSVP</span>
+            <span class="rsvp-submit-sending" style="display:none;">Sending&hellip;</span>
+          </button>
+          <div id="rsvp-success" class="rsvp-success" style="display:none;">
+            <div class="rsvp-success-icon">&#10024;</div>
+            <h3>Thank You!</h3>
+            <p>Your RSVP has been received. We can't wait to celebrate with you!</p>
+          </div>
+          <div id="rsvp-error" class="rsvp-error" style="display:none;">
+            <p>Something went wrong. Please try again or email us directly.</p>
+          </div>
+        </form>
       </div>
     </div>
   </section>
