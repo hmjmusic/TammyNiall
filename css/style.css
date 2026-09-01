@@ -1613,10 +1613,12 @@ body.lightbox-open { overflow: hidden; }
 .form-group label {
   display: block;
   font-family: var(--font-heading);
-  color: var(--color-cream);
+  color: var(--color-deep-purple);
   font-size: 0.95rem;
+  font-weight: 600;
   margin-bottom: 0.45rem;
   letter-spacing: 0.02em;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
 }
 .form-group .required {
   color: var(--color-gold);
