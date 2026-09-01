@@ -616,7 +616,7 @@ function onPlayerStateChange(event) {
   attendingSelect.addEventListener('change', toggleGuestFields);
 
   // Replace this URL after deploying your Google Apps Script
-  var SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL';
+  var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbznAdl68kycjC-zxLkUdET9S4KBGY-t-WnUuODlnZaClIUygIQAc4f6Hh8jgCTCuSLBcw/exec';
 
   form.addEventListener('submit', function(e) {
     e.preventDefault();
