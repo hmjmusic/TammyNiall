@@ -305,8 +305,8 @@ function initScrollAnimations() {
 
 /* ===== COUNTDOWN ===== */
 function initCountdown() {
-  // Placeholder date: August 1, 2027 — will be updated when exact date is set
-  const weddingDate = new Date('2027-08-01T16:00:00-04:00');
+  // Wedding date: August 7, 2027 at 4:30 PM ET
+  const weddingDate = new Date('2027-08-07T16:30:00-04:00');
   const daysEl = document.getElementById('cd-days');
   const hoursEl = document.getElementById('cd-hours');
   const minutesEl = document.getElementById('cd-minutes');

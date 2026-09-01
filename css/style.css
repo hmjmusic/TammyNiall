@@ -1551,6 +1551,49 @@ body.lightbox-open { overflow: hidden; }
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.7; transform: scale(1.15); }
 }
+/* ── Ferry travel section ── */
+.travel-ferry {
+  max-width: 700px;
+  margin: 2.5rem auto;
+  text-align: center;
+  padding: 2rem;
+  background: rgba(61, 43, 86, 0.15);
+  border: 1px solid rgba(201, 169, 110, 0.2);
+  border-radius: 16px;
+}
+.travel-ferry h3 {
+  font-family: var(--font-heading);
+  color: var(--color-gold);
+  margin-bottom: 0.8rem;
+  font-size: 1.3rem;
+}
+.travel-ferry p {
+  color: var(--color-text-soft);
+  margin-bottom: 1rem;
+  line-height: 1.7;
+}
+
+/* ── Registry link button ── */
+.registry-link {
+  display: inline-block;
+  margin-top: 1.2rem;
+  padding: 0.9rem 2.2rem;
+  background: linear-gradient(135deg, var(--color-gold), #d4a574);
+  color: var(--color-deep-purple);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  border-radius: 50px;
+  letter-spacing: 0.03em;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(201, 169, 110, 0.3);
+}
+.registry-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(201, 169, 110, 0.5);
+}
+
 @media (max-width: 600px) {
   .music-toggle { bottom: 16px; right: 16px; width: 42px; height: 42px; font-size: 1.1rem; }
   .fairy-intro-names { font-size: 1.5rem; }
