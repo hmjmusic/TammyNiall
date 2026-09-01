@@ -514,15 +514,16 @@
             <span class="rsvp-submit-text">Send Your RSVP</span>
             <span class="rsvp-submit-sending" style="display:none;">Sending&hellip;</span>
           </button>
-          <div id="rsvp-success" class="rsvp-success" style="display:none;">
-            <div class="rsvp-success-icon">&#10024;</div>
-            <h3>Thank You!</h3>
-            <p>Your RSVP has been received. We can't wait to celebrate with you!</p>
-          </div>
           <div id="rsvp-error" class="rsvp-error" style="display:none;">
             <p>Something went wrong. Please try again or email us directly.</p>
           </div>
         </form>
+        <!-- Success message lives OUTSIDE the form: the form is hidden on success -->
+        <div id="rsvp-success" class="rsvp-success" style="display:none;">
+          <div class="rsvp-success-icon">&#10024;</div>
+          <h3>Thank You!</h3>
+          <p>Your RSVP has been received. We can't wait to celebrate with you!</p>
+        </div>
       </div>
     </div>
   </section>
