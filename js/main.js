@@ -615,8 +615,11 @@ function onPlayerStateChange(event) {
   }
   attendingSelect.addEventListener('change', toggleGuestFields);
 
-  // Replace this URL after deploying your Google Apps Script
-  var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbznAdl68kycjC-zxLkUdET9S4KBGY-t-WnUuODlnZaClIUygIQAc4f6Hh8jgCTCuSLBcw/exec';
+  // RSVPs are stored in the site's own database and viewed at /admin with the wedding password.
+  // The key below is the public "publishable" key; the database only permits inserts through a
+  // validated function, and reads require the wedding password.
+  var SUPABASE_URL = 'https://bbthgxerpnxzuygrksth.supabase.co';
+  var SUPABASE_KEY = 'sb_publishable_wLgn5bFTbM8jwrM2_M4N0w_YRHaVoxe';
 
   form.addEventListener('submit', function(e) {
     e.preventDefault();
@@ -647,34 +650,56 @@ function onPlayerStateChange(event) {
     btn.querySelector('.rsvp-submit-text').style.display = 'none';
     btn.querySelector('.rsvp-submit-sending').style.display = 'inline';
 
-    // Build form data
-    var data = new URLSearchParams();
-    data.append('name', name.value.trim());
-    data.append('email', email.value.trim());
-    data.append('attending', attending.value);
-    data.append('guests', attending.value === 'Regretfully Declines' ? '0' : guests.value);
-    data.append('guestNames', document.getElementById('rsvp-guest-names').value.trim());
-    data.append('attire', document.getElementById('rsvp-attire').value || '');
-    data.append('dietary', document.getElementById('rsvp-dietary').value.trim());
-    data.append('song', document.getElementById('rsvp-song').value.trim());
-    data.append('message', document.getElementById('rsvp-message').value.trim());
+    // Build payload
+    var payload = {
+      name: name.value.trim(),
+      email: email.value.trim(),
+      attending: attending.value,
+      guests: attending.value === 'Regretfully Declines' ? '0' : guests.value,
+      guestNames: document.getElementById('rsvp-guest-names').value.trim(),
+      attire: document.getElementById('rsvp-attire').value || '',
+      dietary: document.getElementById('rsvp-dietary').value.trim(),
+      song: document.getElementById('rsvp-song').value.trim(),
+      message: document.getElementById('rsvp-message').value.trim()
+    };
 
-    fetch(SCRIPT_URL, {
+    function showError(msg) {
+      var errBox = document.getElementById('rsvp-error');
+      if (msg) errBox.querySelector('p').textContent = msg;
+      errBox.style.display = 'block';
+      btn.disabled = false;
+      btn.querySelector('.rsvp-submit-text').style.display = 'inline';
+      btn.querySelector('.rsvp-submit-sending').style.display = 'none';
+    }
+
+    fetch(SUPABASE_URL + '/rest/v1/rpc/wedding_submit_rsvp', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: data.toString(),
-      mode: 'no-cors'
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ p: payload })
+    })
+    .then(function(res) {
+      if (res.ok) return;
+      return res.text().then(function(txt) {
+        var detail = '';
+        try { detail = JSON.parse(txt).message || ''; } catch (err) {}
+        throw new Error(detail);
+      });
     })
     .then(function() {
       form.style.display = 'none';
       document.querySelector('.rsvp-deadline').style.display = 'none';
       document.getElementById('rsvp-success').style.display = 'block';
     })
-    .catch(function() {
-      document.getElementById('rsvp-error').style.display = 'block';
-      btn.disabled = false;
-      btn.querySelector('.rsvp-submit-text').style.display = 'inline';
-      btn.querySelector('.rsvp-submit-sending').style.display = 'none';
+    .catch(function(err) {
+      var friendly = 'Something went wrong. Please try again or email us directly.';
+      if (err && err.message && /required|Invalid|Guest count/i.test(err.message)) {
+        friendly = err.message + '.';
+      }
+      showError(friendly);
     });
   });
 })();

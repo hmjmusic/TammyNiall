@@ -1733,3 +1733,19 @@ body.lightbox-open { overflow: hidden; }
   .fairy-play-btn { width: 80px; height: 80px; font-size: 2rem; }
   .rsvp-form { padding: 0 0.5rem; }
 }
+
+/* Discreet couple's login link in the footer */
+.footer-admin {
+  margin-top: 1.25rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  opacity: 0.55;
+  transition: opacity 0.2s;
+}
+.footer-admin:hover { opacity: 1; }
+.footer-admin a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 1px;
+}

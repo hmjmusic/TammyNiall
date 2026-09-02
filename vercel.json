@@ -2,7 +2,8 @@
   "buildCommand": "",
   "outputDirectory": ".",
   "framework": null,
+  "cleanUrls": true,
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/((?!admin$|admin\\.html$).*)", "destination": "/index.html" }
   ]
 }

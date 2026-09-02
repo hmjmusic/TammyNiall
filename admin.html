@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>RSVP List ~ Tamara &amp; Niall</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-primary: #8A70AD;
+      --color-deep: #3D2B56;
+      --color-cream: #FFF8F5;
+      --color-gold: #C9A96E;
+      --color-text: #2D1B3D;
+      --color-text-light: #5C4670;
+      --color-text-soft: #7B6990;
+      --font-display: 'Cinzel Decorative', serif;
+      --font-heading: 'Cinzel', serif;
+      --font-body: 'Cormorant Garamond', Georgia, serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(160deg, #f6eef8 0%, var(--color-cream) 45%, #f3ecf7 100%);
+      color: var(--color-text);
+      font-family: var(--font-body);
+      font-size: 1.1rem;
+    }
+    a { color: var(--color-primary); }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem; }
+    header { text-align: center; margin-bottom: 2rem; }
+    header h1 {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      color: var(--color-deep);
+      margin: 0 0 .25rem;
+    }
+    header p { margin: 0; color: var(--color-text-soft); font-style: italic; }
+    .card {
+      background: #fff;
+      border: 1px solid rgba(201,169,110,.45);
+      border-radius: 14px;
+      box-shadow: 0 10px 30px rgba(61,43,86,.08);
+      padding: 1.75rem;
+    }
+    .login { max-width: 420px; margin: 3rem auto 0; text-align: center; }
+    .login h2 { font-family: var(--font-heading); font-weight: 600; color: var(--color-deep); margin: 0 0 1rem; }
+    label { display: block; font-family: var(--font-heading); font-size: .85rem; letter-spacing: .05em; color: var(--color-text-light); margin-bottom: .4rem; text-align: left; }
+    input[type="password"], input[type="search"], input[type="text"] {
+      width: 100%;
+      font: inherit;
+      padding: .7rem .9rem;
+      border: 1px solid #d7cbe3;
+      border-radius: 8px;
+      background: #fff;
+      color: var(--color-text);
+    }
+    input:focus { outline: 2px solid var(--color-primary); outline-offset: 1px; }
+    .btn {
+      font-family: var(--font-heading);
+      font-size: .9rem;
+      letter-spacing: .06em;
+      padding: .7rem 1.3rem;
+      border-radius: 999px;
+      border: 1px solid var(--color-primary);
+      background: var(--color-primary);
+      color: #fff;
+      cursor: pointer;
+      transition: background .2s, transform .1s;
+    }
+    .btn:hover { background: var(--color-deep); border-color: var(--color-deep); }
+    .btn:active { transform: translateY(1px); }
+    .btn.ghost { background: transparent; color: var(--color-deep); border-color: var(--color-gold); }
+    .btn.ghost:hover { background: rgba(201,169,110,.15); }
+    .btn[disabled] { opacity: .6; cursor: default; }
+    .login .btn { width: 100%; margin-top: 1rem; }
+    .msg { margin-top: .9rem; min-height: 1.4em; color: #a33; }
+    .msg.ok { color: #2e7d4f; }
+
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+    .stat { text-align: center; padding: 1.1rem .5rem; }
+    .stat .n { font-family: var(--font-heading); font-size: 2rem; color: var(--color-deep); line-height: 1; }
+    .stat .l { font-size: .95rem; color: var(--color-text-soft); margin-top: .3rem; letter-spacing: .04em; }
+
+    .toolbar { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; margin-bottom: 1rem; }
+    .toolbar .grow { flex: 1 1 220px; }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 1rem; }
+    th, td { text-align: left; padding: .6rem .7rem; border-bottom: 1px solid #eee4f2; vertical-align: top; }
+    th {
+      font-family: var(--font-heading);
+      font-size: .75rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: #fff;
+      background: var(--color-deep);
+      position: sticky; top: 0;
+      white-space: nowrap;
+    }
+    tbody tr:nth-child(even) { background: #faf6fc; }
+    td.nowrap { white-space: nowrap; }
+    td.pre { white-space: pre-wrap; max-width: 320px; }
+    .pill { display: inline-block; padding: .15rem .6rem; border-radius: 999px; font-size: .85rem; font-family: var(--font-heading); }
+    .pill.yes { background: #e6f4ea; color: #1e6b3a; }
+    .pill.no { background: #f7e6e6; color: #8a2a2a; }
+    .empty { text-align: center; padding: 2.5rem 1rem; color: var(--color-text-soft); font-style: italic; }
+    .pw-row { display: grid; grid-template-columns: 1fr 1fr auto; gap: .6rem; align-items: end; margin-top: 1rem; }
+    @media (max-width: 640px) { .pw-row { grid-template-columns: 1fr; } }
+    details summary { cursor: pointer; font-family: var(--font-heading); font-size: .85rem; color: var(--color-text-light); }
+    footer.note { text-align: center; margin-top: 2rem; color: var(--color-text-soft); font-size: .95rem; }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Tamara &amp; Niall</h1>
+      <p>RSVP list &mdash; for the couple only</p>
+    </header>
+
+    <!-- Login -->
+    <section id="login" class="card login">
+      <h2>Enter the wedding password</h2>
+      <form id="login-form">
+        <label for="pw">Password</label>
+        <input type="password" id="pw" autocomplete="current-password" required autofocus>
+        <button type="submit" class="btn" id="login-btn">Unlock</button>
+      </form>
+      <div id="login-msg" class="msg" aria-live="polite"></div>
+      <p style="margin-top:1rem"><a href="/">&larr; Back to the website</a></p>
+    </section>
+
+    <!-- Dashboard -->
+    <section id="dash" hidden>
+      <div class="stats">
+        <div class="card stat"><div class="n" id="s-total">0</div><div class="l">Responses</div></div>
+        <div class="card stat"><div class="n" id="s-yes">0</div><div class="l">Accepting</div></div>
+        <div class="card stat"><div class="n" id="s-no">0</div><div class="l">Declining</div></div>
+        <div class="card stat"><div class="n" id="s-guests">0</div><div class="l">Guests attending</div></div>
+      </div>
+
+      <div class="card">
+        <div class="toolbar">
+          <input type="search" id="filter" class="grow" placeholder="Search names, emails, songs&hellip;" aria-label="Filter responses">
+          <button class="btn ghost" id="refresh">Refresh</button>
+          <button class="btn" id="csv">Download spreadsheet (CSV)</button>
+          <button class="btn ghost" id="logout">Log out</button>
+        </div>
+        <div class="table-wrap">
+          <table id="tbl">
+            <thead>
+              <tr>
+                <th>Submitted</th><th>Name</th><th>Email</th><th>Attending</th><th>Guests</th>
+                <th>Guest names</th><th>Attire</th><th>Dietary</th><th>Song</th><th>Note</th>
+              </tr>
+            </thead>
+            <tbody id="rows"></tbody>
+          </table>
+          <div id="empty" class="empty" hidden>No RSVPs yet. They will appear here as guests respond.</div>
+        </div>
+        <div id="dash-msg" class="msg" aria-live="polite"></div>
+
+        <details style="margin-top:1.25rem">
+          <summary>Change the wedding password</summary>
+          <form id="pw-form" class="pw-row">
+            <div><label for="pw-old">Current password</label><input type="password" id="pw-old" autocomplete="current-password" required></div>
+            <div><label for="pw-new">New password (8+ characters)</label><input type="password" id="pw-new" autocomplete="new-password" minlength="8" required></div>
+            <button type="submit" class="btn">Update</button>
+          </form>
+          <div id="pw-msg" class="msg" aria-live="polite"></div>
+        </details>
+      </div>
+
+      <footer class="note">Tip: open the CSV in Google Sheets, Numbers, or Excel to sort and plan seating.</footer>
+    </section>
+  </div>
+
+  <script>
+  (function () {
+    var SUPABASE_URL = 'https://bbthgxerpnxzuygrksth.supabase.co';
+    var SUPABASE_KEY = 'sb_publishable_wLgn5bFTbM8jwrM2_M4N0w_YRHaVoxe';
+    var SESSION_KEY = 'wedding-admin-pw';
+
+    var $ = function (id) { return document.getElementById(id); };
+    var rows = [];
+    var password = '';
+
+    function rpc(name, args) {
+      return fetch(SUPABASE_URL + '/rest/v1/rpc/' + name, {
+        method: 'POST',
+        headers: {
+          'apikey': SUPABASE_KEY,
+          'Authorization': 'Bearer ' + SUPABASE_KEY,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(args)
+      }).then(function (res) {
+        return res.text().then(function (txt) {
+          var body = null;
+          try { body = txt ? JSON.parse(txt) : null; } catch (e) { body = null; }
+          if (!res.ok) {
+            var err = new Error((body && (body.message || body.hint)) || ('Request failed (' + res.status + ')'));
+            throw err;
+          }
+          return body;
+        });
+      });
+    }
+
+    function esc(s) {
+      return String(s == null ? '' : s)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function fmtDate(iso) {
+      var d = new Date(iso);
+      if (isNaN(d)) return iso || '';
+      return d.toLocaleString('en-US', { timeZone: 'America/New_York', month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit' });
+    }
+
+    function render() {
+      var q = ($('filter').value || '').trim().toLowerCase();
+      var list = rows.filter(function (r) {
+        if (!q) return true;
+        return [r.name, r.email, r.guest_names, r.attire, r.dietary, r.song, r.message, r.attending]
+          .join(' \n ').toLowerCase().indexOf(q) !== -1;
+      });
+
+      var yes = 0, no = 0, guests = 0;
+      rows.forEach(function (r) {
+        if (r.attending === 'Joyfully Accepts') { yes++; guests += (parseInt(r.guests, 10) || 0); }
+        else no++;
+      });
+      $('s-total').textContent = rows.length;
+      $('s-yes').textContent = yes;
+      $('s-no').textContent = no;
+      $('s-guests').textContent = guests;
+
+      $('rows').innerHTML = list.map(function (r) {
+        var accepts = r.attending === 'Joyfully Accepts';
+        return '<tr>' +
+          '<td class="nowrap">' + esc(fmtDate(r.created_at)) + '</td>' +
+          '<td>' + esc(r.name) + '</td>' +
+          '<td><a href="mailto:' + esc(r.email) + '">' + esc(r.email) + '</a></td>' +
+          '<td><span class="pill ' + (accepts ? 'yes' : 'no') + '">' + esc(accepts ? 'Accepts' : 'Declines') + '</span></td>' +
+          '<td class="nowrap">' + esc(r.guests) + '</td>' +
+          '<td class="pre">' + esc(r.guest_names) + '</td>' +
+          '<td>' + esc(r.attire) + '</td>' +
+          '<td class="pre">' + esc(r.dietary) + '</td>' +
+          '<td class="pre">' + esc(r.song) + '</td>' +
+          '<td class="pre">' + esc(r.message) + '</td>' +
+        '</tr>';
+      }).join('');
+      $('empty').hidden = list.length !== 0;
+    }
+
+    function load() {
+      $('dash-msg').textContent = 'Loading…';
+      $('dash-msg').className = 'msg ok';
+      return rpc('wedding_get_rsvps', { p_password: password }).then(function (data) {
+        rows = Array.isArray(data) ? data : [];
+        $('dash-msg').textContent = '';
+        render();
+      });
+    }
+
+    function showDash() {
+      $('login').hidden = true;
+      $('dash').hidden = false;
+    }
+
+    function showLogin(msg) {
+      $('dash').hidden = true;
+      $('login').hidden = false;
+      $('login-msg').textContent = msg || '';
+      $('login-msg').className = 'msg';
+      $('pw').value = '';
+      $('pw').focus();
+    }
+
+    function toCSV() {
+      var head = ['Timestamp', 'Name', 'Email', 'Attending', 'Number of Guests', 'Guest Names', 'Attire Choice', 'Dietary Restrictions', 'Song Request', 'Message'];
+      var cell = function (v) {
+        var s = String(v == null ? '' : v);
+        // Guard against spreadsheet formula injection, then quote.
+        if (/^[=+\-@\t\r]/.test(s)) s = "'" + s;
+        return '"' + s.replace(/"/g, '""') + '"';
+      };
+      var lines = [head.map(cell).join(',')];
+      rows.slice().reverse().forEach(function (r) { // oldest first in the export
+        lines.push([fmtDate(r.created_at), r.name, r.email, r.attending, r.guests, r.guest_names, r.attire, r.dietary, r.song, r.message].map(cell).join(','));
+      });
+      return '﻿' + lines.join('\r\n');
+    }
+
+    $('login-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var btn = $('login-btn');
+      btn.disabled = true;
+      $('login-msg').textContent = 'Checking…';
+      $('login-msg').className = 'msg ok';
+      password = $('pw').value;
+      load().then(function () {
+        try { sessionStorage.setItem(SESSION_KEY, password); } catch (e2) {}
+        showDash();
+      }).catch(function (err) {
+        password = '';
+        $('login-msg').textContent = /Incorrect password/i.test(err.message) ? 'That password is not right. Try again.' : err.message;
+        $('login-msg').className = 'msg';
+      }).then(function () { btn.disabled = false; });
+    });
+
+    $('refresh').addEventListener('click', function () {
+      load().catch(function (err) { $('dash-msg').textContent = err.message; $('dash-msg').className = 'msg'; });
+    });
+
+    $('filter').addEventListener('input', render);
+
+    $('csv').addEventListener('click', function () {
+      var blob = new Blob([toCSV()], { type: 'text/csv;charset=utf-8' });
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'tamara-niall-rsvps-' + new Date().toISOString().slice(0, 10) + '.csv';
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+    });
+
+    $('logout').addEventListener('click', function () {
+      password = '';
+      rows = [];
+      try { sessionStorage.removeItem(SESSION_KEY); } catch (e) {}
+      showLogin('');
+    });
+
+    $('pw-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var oldPw = $('pw-old').value, newPw = $('pw-new').value;
+      $('pw-msg').textContent = 'Updating…';
+      $('pw-msg').className = 'msg ok';
+      rpc('wedding_change_password', { p_old: oldPw, p_new: newPw }).then(function () {
+        password = newPw;
+        try { sessionStorage.setItem(SESSION_KEY, password); } catch (e2) {}
+        $('pw-old').value = ''; $('pw-new').value = '';
+        $('pw-msg').textContent = 'Password updated. Share the new one with each other!';
+        $('pw-msg').className = 'msg ok';
+      }).catch(function (err) {
+        $('pw-msg').textContent = err.message;
+        $('pw-msg').className = 'msg';
+      });
+    });
+
+    // Resume a session in this tab if the password was already entered.
+    var saved = null;
+    try { saved = sessionStorage.getItem(SESSION_KEY); } catch (e) {}
+    if (saved) {
+      password = saved;
+      load().then(showDash).catch(function () {
+        try { sessionStorage.removeItem(SESSION_KEY); } catch (e) {}
+        password = '';
+        showLogin('');
+      });
+    }
+  })();
+  </script>
+</body>
+</html>
